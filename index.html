@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>한국을 빛낸 위인 탐구</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet:wght@500;700;800&display=swap">
+<style>
+/* 레이아웃: 위에서부터 제목·조사 진행도 → 1절부터 5절까지 이어지는 연표 띠 → 검색·직업 분류 → 절별 인물 카드 격자 → 인물 조사 카드(대화상자) */
+:root{
+  --bg:#edf1f2; --surface:#ffffff; --surface-2:#f5f8f8; --ink:#1a2329; --ink-2:#4a5761; --line:#d2dbde;
+  --accent:#1f4e79; --on-accent:#ffffff; --lattice:#e2e8ea;
+  --v1:#2f69a1; --v2:#bc3a2c; --v3:#93650a; --v4:#2e7649; --v5:#6a4b95; --v0:#4a5761;
+  --seal-ink:#ffffff; --hint-bg:#fbf2da; --hint-ink:#6a4d00; --hint-line:#ead39c;
+  --shadow:0 1px 2px rgba(20,35,45,.06),0 8px 22px rgba(20,35,45,.08);
+  --font-display:"Hahmlet","Noto Serif KR","AppleMyungjo","Batang",serif;
+  --font-body:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10161a; --surface:#182026; --surface-2:#1e2830; --ink:#e6edf0; --ink-2:#a3b1ba; --line:#2e3b44;
+    --accent:#8db6df; --on-accent:#0d1720; --lattice:#24303a;
+    --v1:#72a3d6; --v2:#e47766; --v3:#d8a843; --v4:#66b183; --v5:#a88cd2; --v0:#a3b1ba;
+    --seal-ink:#0f1519; --hint-bg:#2a2414; --hint-ink:#efd48c; --hint-line:#4b3f1f;
+    --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 22px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10161a; --surface:#182026; --surface-2:#1e2830; --ink:#e6edf0; --ink-2:#a3b1ba; --line:#2e3b44;
+  --accent:#8db6df; --on-accent:#0d1720; --lattice:#24303a;
+  --v1:#72a3d6; --v2:#e47766; --v3:#d8a843; --v4:#66b183; --v5:#a88cd2; --v0:#a3b1ba;
+  --seal-ink:#0f1519; --hint-bg:#2a2414; --hint-ink:#efd48c; --hint-line:#4b3f1f;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 22px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.65}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:clamp(16px,4vw,32px)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.ic{width:18px;height:18px;flex:none}
+
+/* 머리글 */
+.masthead{padding-block:36px 18px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 32px;align-items:end}
+.eyebrow{margin:0 0 6px;font-size:13px;letter-spacing:.08em;color:var(--ink-2)}
+h1{margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(30px,5.4vw,50px);line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
+.lead{margin:10px 0 0;max-width:60ch;color:var(--ink-2)}
+.progress{min-width:240px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.progress-text{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14px;color:var(--ink-2)}
+.progress-text b{font-family:var(--font-display);font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+
+/* 연표 띠 */
+.tl-caption{display:flex;align-items:center;gap:8px;margin:6px 0 4px;font-size:13px;color:var(--ink-2)}
+.tl-caption .ic{width:16px;height:16px}
+.timeline{position:relative;display:grid;grid-template-columns:minmax(80px,.65fr) repeat(5,minmax(0,1fr));gap:6px}
+.timeline::before{content:"";position:absolute;left:10px;right:10px;top:21px;height:2px;background:var(--line)}
+.tl-btn{position:relative;display:flex;flex-direction:column;gap:1px;min-width:0;padding:36px 12px 12px;border:1px solid transparent;border-radius:12px;background:transparent;text-align:left;transition:background .15s}
+.tl-btn::before{content:"";position:absolute;top:13px;left:12px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:3px solid var(--c);box-sizing:border-box;transition:background .15s}
+.tl-btn:hover{background:var(--surface)}
+.tl-btn[aria-selected="true"]{background:var(--surface);border-color:var(--line);box-shadow:var(--shadow)}
+.tl-btn[aria-selected="true"]::before{background:var(--c)}
+.tl-verse{font-family:var(--font-display);font-weight:800;font-size:21px;line-height:1.2;color:var(--c)}
+.tl-era{font-size:14px;color:var(--ink);line-height:1.4}
+.tl-years{font-size:12px;color:var(--ink-2);line-height:1.4}
+.tl-count{font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+
+/* 검색과 분류 */
+.tools{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;padding-block:20px 6px}
+.search{flex:1 1 320px;min-width:0;display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--line);border-radius:999px;padding:0 18px;color:var(--ink-2)}
+.search:focus-within{border-color:var(--accent)}
+.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:inherit;padding:12px 0;outline:none}
+.search input::placeholder{color:var(--ink-2);opacity:.85}
+.ghost-btn{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 18px;font-family:var(--font-display);font-weight:700;font-size:15px;transition:border-color .15s}
+.ghost-btn:hover{border-color:var(--accent)}
+.chips{flex-basis:100%;display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 13px;font-size:14px;color:var(--ink-2);transition:background .15s,color .15s}
+.chip .ic{width:16px;height:16px}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.result-note{margin:14px 0 0;font-size:14px;color:var(--ink-2)}
+
+/* 절별 목록 */
+.vsec{padding-block:22px 4px}
+.vsec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding-bottom:8px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.vsec-head h2{margin:0;font-family:var(--font-display);font-weight:800;font-size:24px;color:var(--c)}
+.vsec-era{font-family:var(--font-display);font-weight:700;font-size:18px}
+.vsec-meta{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,255px),1fr));gap:12px}
+.card{display:flex;gap:14px;align-items:flex-start;min-width:0;padding:14px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px;transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--c)}
+.card-body{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.card-name{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-weight:800;font-size:19px;line-height:1.3}
+.card-tag{font-size:14px;color:var(--ink-2);line-height:1.45}
+.card-meta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-top:6px;font-size:13px;color:var(--ink-2)}
+.card-meta span{display:inline-flex;align-items:center;gap:4px}
+.card-meta .ic{width:15px;height:15px}
+.badge{font-family:var(--font-body);font-weight:400;font-size:11px;line-height:1.6;padding:0 7px;border:1px solid var(--line);border-radius:6px;color:var(--ink-2);white-space:nowrap}
+.done-dot{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--on-accent);flex:none}
+.done-dot .ic{width:14px;height:14px}
+.empty{padding:40px 20px;text-align:center;color:var(--ink-2);background:var(--surface);border:1px dashed var(--line);border-radius:14px;margin-top:18px}
+.empty b{display:block;font-family:var(--font-display);font-size:18px;color:var(--ink);margin-bottom:4px}
+
+/* 도장(인물 그림 자리) */
+.seal{--size:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;width:var(--size);height:var(--size);border-radius:calc(var(--size)*.14);background:var(--c);color:var(--seal-ink);font-family:var(--font-display);font-weight:800;line-height:1.02;box-shadow:inset 0 0 0 calc(var(--size)*.07) var(--c),inset 0 0 0 calc(var(--size)*.095) var(--seal-ink)}
+.seal i{font-style:normal;display:block}
+.seal.n1 i{font-size:calc(var(--size)*.5)}
+.seal.n2 i{font-size:calc(var(--size)*.33)}
+.seal.n3 i{font-size:calc(var(--size)*.25)}
+
+/* 제외 인물·바닥글 */
+.excluded{margin-top:34px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:2px 20px}
+.excluded summary{cursor:pointer;padding:14px 0;font-family:var(--font-display);font-weight:700;font-size:17px}
+.excluded p{margin:0 0 12px;color:var(--ink-2);font-size:15px;max-width:70ch}
+.ex-list{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:10px}
+.ex-list li{padding:10px 12px;background:var(--surface-2);border-radius:10px;font-size:14px;color:var(--ink-2);line-height:1.55}
+.ex-list b{font-family:var(--font-display);color:var(--ink);font-size:15px;margin-right:6px}
+.ex-v{font-size:12px;color:var(--ink-2);border:1px solid var(--line);border-radius:6px;padding:0 6px;margin-right:6px}
+.foot{padding-block:28px 48px;font-size:14px;color:var(--ink-2)}
+.foot p{margin:0 0 6px;max-width:75ch}
+
+/* 인물 조사 카드 */
+dialog{border:0;padding:0;width:min(800px,calc(100% - 24px));max-height:calc(100% - 32px);overflow:auto;border-radius:18px;background:var(--surface);color:var(--ink);box-shadow:0 24px 70px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,16,20,.55)}
+.dlg-head{position:relative;display:grid;grid-template-columns:200px minmax(0,1fr);gap:22px;padding:24px 24px 20px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.portrait{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.frame{position:relative;aspect-ratio:4/5;max-width:100%;display:grid;place-items:center;overflow:hidden;border-radius:12px;border:1px solid var(--line);background-color:var(--surface);background-image:repeating-linear-gradient(90deg,var(--lattice) 0 2px,transparent 2px 14px),repeating-linear-gradient(0deg,transparent 0 46px,var(--lattice) 46px 51px)}
+.frame .seal{--size:118px;box-shadow:inset 0 0 0 calc(var(--size)*.07) var(--c),inset 0 0 0 calc(var(--size)*.095) var(--seal-ink),var(--shadow)}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--surface)}
+.frame.has-img .seal{position:absolute;right:8px;bottom:8px;--size:46px;z-index:1}
+.portrait figcaption{font-size:12px;color:var(--ink-2);line-height:1.4}
+.dlg-title{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0;padding-right:40px}
+.dlg-eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;font-size:13px;color:var(--ink-2)}
+.vchip{font-family:var(--font-display);font-weight:800;font-size:13px;padding:1px 9px;border-radius:6px;background:var(--c);color:var(--seal-ink)}
+.dlg-title h2{margin:4px 0 0;font-family:var(--font-display);font-weight:800;font-size:clamp(28px,4.6vw,38px);line-height:1.15;text-wrap:balance}
+.dlg-sub{margin:0;font-size:14px;color:var(--ink-2)}
+.dlg-tag{margin:6px 0 0;font-size:16px}
+.note-line{margin:2px 0 0;font-size:13px;color:var(--ink-2)}
+.done-btn{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--c);background:var(--surface);color:var(--ink);font-family:var(--font-display);font-weight:700;font-size:14px;transition:background .15s,color .15s}
+.done-btn[aria-pressed="true"]{background:var(--c);color:var(--seal-ink)}
+.close{position:absolute;top:14px;right:14px;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink-2)}
+.close:hover{color:var(--ink)}
+.dlg-body{display:flex;flex-direction:column;gap:24px;padding:24px}
+.dlg-body h3{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--ink)}
+.dlg-body h3 .ic{color:var(--c);width:18px;height:18px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin:0;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.facts div{background:var(--surface);padding:10px 12px;min-width:0}
+.facts dt{font-size:12px;color:var(--ink-2)}
+.facts dd{margin:2px 0 0;font-family:var(--font-display);font-weight:700;font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+.facts dd small{display:block;font-family:var(--font-body);font-weight:400;font-size:12px;color:var(--ink-2);margin-top:2px}
+.deeds{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.deeds li{position:relative;padding-left:24px;max-width:68ch}
+.deeds li::before{content:"";position:absolute;left:3px;top:.6em;width:10px;height:10px;border-radius:3px;background:var(--c)}
+.quote{margin:0;padding:16px 18px 14px 20px;background:var(--surface-2);border-radius:12px;border-left:4px solid var(--c)}
+.quote p{margin:0;font-family:var(--font-display);font-weight:500;font-size:17px;line-height:1.7}
+.quote cite{display:block;margin-top:8px;font-style:normal;font-size:13px;color:var(--ink-2)}
+.quote.empty-q p{font-family:var(--font-body);font-size:15px;color:var(--ink-2)}
+.hint{padding:14px 18px;border-radius:12px;background:var(--hint-bg);border:1px solid var(--hint-line)}
+.hint h3{color:var(--hint-ink)}
+.hint h3 .ic{color:var(--hint-ink)}
+.hint p{margin:0;max-width:68ch}
+.example{display:flex;gap:10px;align-items:flex-start;margin:0 0 12px;padding:12px 14px;border:1px dashed var(--line);border-radius:12px}
+.ex-label{flex:none;font-family:var(--font-display);font-weight:700;font-size:12px;padding:1px 8px;border-radius:6px;background:var(--surface-2);color:var(--ink-2);margin-top:2px}
+.note-label{display:block;font-size:14px;color:var(--ink-2);margin-bottom:6px}
+textarea{width:100%;min-height:96px;resize:vertical;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface-2);color:var(--ink);font:inherit;line-height:1.6}
+textarea:focus{border-color:var(--c);outline:none}
+.save-note{margin:6px 0 0;font-size:12px;color:var(--ink-2)}
+.dlg-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;padding:16px 24px 22px;border-top:1px solid var(--line)}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:14px}
+.nav-btn:hover{border-color:var(--c)}
+.wiki{display:inline-flex;align-items:center;gap:6px;font-size:14px;text-decoration:none;padding:9px 4px}
+.wiki:hover{text-decoration:underline}
+
+@media (max-width:760px){
+  .masthead{grid-template-columns:1fr}
+  .progress{min-width:0}
+  .timeline{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .timeline::before{display:none}
+  .tl-btn{padding:32px 10px 10px;background:var(--surface);border-color:var(--line)}
+  .tl-years{display:none}
+  .dlg-head{grid-template-columns:1fr;gap:14px;padding:20px 18px 18px}
+  .frame{aspect-ratio:16/9}
+  .frame .seal{--size:96px}
+  .dlg-body{padding:20px 18px}
+  .dlg-foot{padding:14px 18px 18px}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+  .card:hover{transform:none}
+}
+</style>
+
+<header class="masthead wrap">
+  <div>
+    <p class="eyebrow">노래로 배우는 역사 인물 조사</p>
+    <h1>한국을 빛낸 위인 탐구</h1>
+    <p class="lead">《한국을 빛낸 100명의 위인들》 1절부터 5절까지 나오는 인물을 골라 조사해 보세요. 카드를 누르면 인물 조사 카드가 열려요.</p>
+  </div>
+  <div class="progress" aria-live="polite">
+    <div class="progress-text"><span>내가 조사를 마친 인물</span><b><span id="doneCount">0</span> / <span id="totalCount">0</span>명</b></div>
+    <div class="bar"><i id="doneBar"></i></div>
+  </div>
+</header>
+
+<nav class="wrap" aria-label="노래 절 고르기">
+  <p class="tl-caption"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M14 7l5 5-5 5"/></svg>노래는 시대 순서로 이어져요. 보고 싶은 절을 고르세요.</p>
+  <div class="timeline" id="timeline" role="tablist"></div>
+</nav>
+
+<section class="wrap tools" aria-label="인물 찾기">
+  <div class="search">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <label for="q" class="sr">인물 찾기</label>
+    <input id="q" type="search" placeholder="이름, 직업, 나라, 한 일로 찾기 (예: 한글, 장군, 고려)" autocomplete="off">
+  </div>
+  <button type="button" class="ghost-btn" id="randomBtn">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>
+    아무 인물이나 뽑기
+  </button>
+  <div class="chips" id="chips" role="group" aria-label="하는 일로 고르기"></div>
+</section>
+
+<main class="wrap" id="list"></main>
+
+<section class="wrap" aria-label="넣지 않은 인물">
+  <details class="excluded">
+    <summary>노래에는 나오지만 이 사이트에 넣지 않은 인물 (<span id="exCount">0</span>명)</summary>
+    <p>실제로 있었는지 확실하지 않거나, 지어낸 이야기 속 인물이거나, 역사적 평가가 나쁘거나 엇갈리는 인물은 빼 두었어요. 왜 뺐을지 친구들과 이야기해 보세요.</p>
+    <ul class="ex-list" id="exList"></ul>
+  </details>
+</section>
+
+<footer class="wrap foot">
+  <p>노래 듣기: <a href="https://youtu.be/fP7sVxEUJ7g" target="_blank" rel="noopener">유튜브에서 《한국을 빛낸 100명의 위인들》 듣기 ↗</a></p>
+  <p>노래 가사는 저작권이 있어서 이 사이트에 싣지 않았어요. 노래는 여러 버전이 있어서 버전에 따라 나오는 인물이 조금 다를 수 있어요.</p>
+  <p>인물 정보는 『삼국사기』, 『삼국유사』, 『고려사』, 『조선왕조실록』 같은 기록과 교과서 내용을 바탕으로 쉽게 정리했어요. 태어난 해가 정확하지 않은 인물도 있으니, 위키백과나 우리역사넷에서 한 번 더 확인해 보세요.</p>
+</footer>
+
+<dialog id="detail" aria-labelledby="dName">
+  <header class="dlg-head">
+    <figure class="portrait">
+      <div class="frame" id="dFrame"><span id="dSeal"></span><img id="dImg" alt="" hidden></div>
+      <figcaption id="dCap"></figcaption>
+    </figure>
+    <div class="dlg-title">
+      <p class="dlg-eyebrow" id="dEyebrow"></p>
+      <h2 id="dName"></h2>
+      <p class="dlg-sub" id="dSub"></p>
+      <p class="dlg-tag" id="dTag"></p>
+      <p class="note-line" id="dNote" hidden></p>
+      <button type="button" class="done-btn" id="doneBtn" aria-pressed="false"></button>
+    </div>
+    <button type="button" class="close" id="closeBtn" aria-label="닫기">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </header>
+  <div class="dlg-body">
+    <section>
+      <h3 id="hFacts"></h3>
+      <dl class="facts" id="dFacts"></dl>
+    </section>
+    <section>
+      <h3 id="hDeeds"></h3>
+      <ul class="deeds" id="dDeeds"></ul>
+    </section>
+    <section>
+      <h3 id="hQuote"></h3>
+      <blockquote class="quote" id="dQuote"></blockquote>
+    </section>
+    <section class="hint" id="dHint">
+      <h3 id="hHint"></h3>
+      <p id="dFact"></p>
+    </section>
+    <section>
+      <h3 id="hMsg"></h3>
+      <p class="example"><span class="ex-label">예시</span><span id="dMsg"></span></p>
+      <label for="myNote" class="note-label">내가 쓰는 말</label>
+      <textarea id="myNote" rows="3" placeholder="이 인물에게 하고 싶은 말을 적어 보세요."></textarea>
+      <p class="save-note" id="saveNote">쓴 내용은 이 기기에 자동으로 저장돼요.</p>
+    </section>
+  </div>
+  <footer class="dlg-foot">
+    <button type="button" class="nav-btn" id="prevBtn">← 이전 인물</button>
+    <a class="wiki" id="wikiLink" href="https://ko.wikipedia.org" target="_blank" rel="noopener">위키백과에서 더 찾아보기 ↗</a>
+    <button type="button" class="nav-btn" id="nextBtn">다음 인물 →</button>
+  </footer>
+</dialog>
+
+<script>
+(function(){
+"use strict";
+
+/* ───────── 절(연표) 정보 ───────── */
+var VERSES = [
+  {v:1, era:"고조선 · 삼국", years:"기원전 2333년 – 7세기"},
+  {v:2, era:"남북국 · 고려", years:"7세기 – 15세기 초"},
+  {v:3, era:"조선 전기", years:"15세기 – 16세기"},
+  {v:4, era:"조선 후기", years:"17세기 – 19세기"},
+  {v:5, era:"근대 · 일제 강점기", years:"19세기 말 – 20세기"}
+];
+
+/* ───────── 아이콘 ───────── */
+var ICONS = {
+  all:'<path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>',
+  crown:'<path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/>',
+  shield:'<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+  book:'<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20"/>',
+  lotus:'<path d="M12 4c2 2.5 2 6 0 9-2-3-2-6.5 0-9z"/><path d="M3.5 10c3.5 0 6.5 2 8.5 5 2-3 5-5 8.5-5-1 5.5-4.4 9-8.5 9s-7.5-3.5-8.5-9z"/>',
+  brush:'<path d="M18.5 3.5l2 2-9 9-3-3z"/><path d="M8.5 11.5l3 3c0 3-2 5.5-6 5.5-.8 0-1.5-.2-2-.5 1.5-1 1.5-2.5 1.5-4 0-2.4 1.8-4 3.5-4z"/>',
+  flask:'<path d="M9 3h6M10 3v6.5L4.5 19a1.3 1.3 0 0 0 1.1 2h12.8a1.3 1.3 0 0 0 1.1-2L14 9.5V3"/><path d="M7 15h10"/>',
+  flag:'<path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+  list:'<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>',
+  quote:'<path d="M7 7h4v4c0 3-1.5 5-4 6M14 7h4v4c0 3-1.5 5-4 6"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+  pen:'<path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/>'
+};
+function icon(n){ return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + ICONS[n] + '</svg>'; }
+
+var CATS = {
+  king:{label:"왕", icon:"crown"},
+  guard:{label:"나라 지킴이", icon:"shield"},
+  scholar:{label:"학자·관리", icon:"book"},
+  faith:{label:"종교인", icon:"lotus"},
+  art:{label:"예술·문학", icon:"brush"},
+  sci:{label:"과학·발명", icon:"flask"},
+  indep:{label:"독립운동가", icon:"flag"}
+};
+
+/* ───────── 인물 자료 ─────────
+   v 절 / n 이름 / h 한자 / alt 다른 이름 / sl 도장 글자 / life 생몰 / by 태어난 해 / bn 태어난 해 덧말
+   sx 성별 / job 직업 / nat 나라 / era 시대 / cat 분류 / tag 한 줄 소개 / d 한 일 3가지
+   q 남긴 말 {t 내용, s 출처, k 종류} / f 사실 확인 / m 하고 싶은 말 예시 / w 위키백과 검색어 */
+var PEOPLE = [
+/* ── 1절 ── */
+{id:"p1",v:1,n:"단군왕검",h:"檀君王儉",sl:"단군",by:"알 수 없어요",bn:"기원전 2333년에 나라를 세웠다고 전해져요",sx:"남",job:"고조선의 임금",nat:"고조선",era:"고조선",cat:"king",badge:"건국 이야기",
+ tag:"우리 역사의 첫 나라를 세운 임금",
+ d:["우리 역사에서 처음 세워진 나라, 고조선을 세웠다고 전해져요.","아사달을 도읍으로 정하고 나라를 다스렸다고 『삼국유사』에 기록되어 있어요.","건국 이야기에 담긴 ‘홍익인간’ 정신은 오늘날 우리나라 교육의 기본 이념이 되었어요."],
+ q:{t:"널리 인간을 이롭게 하라. (홍익인간 弘益人間)",s:"『삼국유사』 단군 건국 이야기에 나오는 말",k:"기록"},
+ f:"단군 이야기에는 곰이 사람이 되는 것처럼 신화가 섞여 있어요. 신화 속에 숨은 역사(농사를 중요하게 여긴 것, 하늘을 섬긴 것 등)를 찾아보는 것이 중요해요.",
+ m:"단군왕검님, 우리 역사의 첫 나라를 세워 주셔서 고맙습니다. 홍익인간의 뜻처럼 저도 친구들을 돕는 사람이 될게요.",w:"단군왕검"},
+{id:"p2",v:1,n:"동명성왕",h:"東明聖王",alt:"주몽",sl:"동명",life:"기원전 58년 – 기원전 19년",by:"기원전 58년",bn:"부여에서 자랐어요",sx:"남",job:"고구려를 세운 첫 번째 왕",nat:"고구려",era:"삼국 시대",cat:"king",badge:"건국 이야기",
+ tag:"활을 잘 쏜 고구려의 시조",
+ d:["기원전 37년 졸본 지역에서 고구려를 세웠어요.","활을 아주 잘 쏘아 ‘활 잘 쏘는 사람’이라는 뜻의 ‘주몽’으로 불렸어요.","이웃한 비류국 등을 아우르며 고구려가 커 나갈 바탕을 만들었어요."],
+ q:{t:"나는 하늘 임금의 아들이요, 물의 신 하백의 외손자이다.",s:"『삼국사기』, 쫓기던 주몽이 강을 건너며 한 말",k:"기록"},
+ f:"주몽이 알에서 태어났다는 이야기는 신화예요. 고구려 사람들이 자기 나라의 시작을 특별하게 여긴 마음이 담겨 있어요.",
+ m:"주몽님, 쫓기는 어려운 상황에서도 포기하지 않고 나라를 세운 용기를 본받고 싶어요.",w:"동명성왕"},
+{id:"p3",v:1,n:"온조왕",h:"溫祚王",sl:"온조",life:"? – 28년",by:"알 수 없어요",bn:"기원전 1세기 무렵 태어났어요",sx:"남",job:"백제를 세운 첫 번째 왕",nat:"백제",era:"삼국 시대",cat:"king",badge:"건국 이야기",
+ tag:"한강 가에 백제를 세운 왕",
+ d:["기원전 18년 한강 근처 위례성에 도읍을 정하고 나라를 세웠어요.","처음 이름은 ‘십제’였는데, 형 비류를 따르던 백성까지 함께하면서 ‘백제’로 바꿨다고 전해져요.","마한의 여러 작은 나라를 아우르며 백제의 땅을 넓혀 갔어요."],
+ q:null,
+ f:"『삼국사기』에는 온조가 고구려를 세운 주몽의 아들이라고 적혀 있어요. 그래서 백제와 고구려는 뿌리가 같다고 보기도 해요.",
+ m:"온조왕님, 한강 옆에 나라를 세우신 덕분에 서울에도 백제의 흔적이 남아 있어요. 한성백제박물관에 꼭 가 볼게요!",w:"온조왕"},
+{id:"p4",v:1,n:"박혁거세",h:"朴赫居世",alt:"혁거세 거서간",sl:"혁거세",life:"기원전 69년 – 4년",by:"기원전 69년",bn:"13살에 임금이 되었어요",sx:"남",job:"신라를 세운 첫 번째 왕(거서간)",nat:"신라",era:"삼국 시대",cat:"king",badge:"건국 이야기",
+ tag:"여섯 마을이 함께 받든 신라의 첫 임금",
+ d:["기원전 57년 13살의 나이로 임금이 되어 신라(서라벌)를 세웠어요.","여섯 마을(6촌)의 촌장들이 뜻을 모아 그를 임금으로 받들었어요.","알영을 왕비로 맞고 도읍에 금성을 쌓아 나라의 기틀을 다졌어요."],
+ q:null,
+ f:"박혁거세가 알에서 태어났다는 이야기는 신화예요. 알이 박처럼 생겨서 성을 ‘박’이라 했다고 전해져요.",
+ m:"박혁거세님, 여러 마을 사람들이 힘을 모아 임금을 정했다는 이야기가 멋져요. 우리 반도 의견을 모아 함께 정해 볼게요.",w:"박혁거세"},
+{id:"p5",v:1,n:"광개토대왕",h:"廣開土大王",alt:"이름 담덕",sl:"광개토",life:"374년 – 412년",by:"374년",bn:"391년에 왕이 되었어요",sx:"남",job:"고구려의 제19대 왕",nat:"고구려",era:"삼국 시대",cat:"king",
+ tag:"영토를 크게 넓힌 정복 군주",
+ d:["북쪽의 후연과 거란 등을 물리치고 만주의 넓은 땅까지 고구려의 영토를 넓혔어요.","400년에 신라에 쳐들어온 왜를 물리쳐 신라를 도왔어요.","‘영락’이라는 고구려만의 연호를 써서 스스로 중심이 되는 나라임을 보여 주었어요."],
+ q:{t:"은혜와 덕택이 하늘까지 미치고, 위엄과 무력은 온 세상에 떨쳤다.",s:"아들 장수왕이 세운 광개토대왕릉비에 새겨진 글",k:"기록"},
+ f:"광개토대왕릉비는 지금 중국 지린성 지안시에 있어요. 높이가 6m가 넘는 커다란 비석이에요.",
+ m:"광개토대왕님, 넓은 만주 벌판을 달리던 고구려의 기상이 느껴져요. 저도 꿈을 크게 가질게요.",w:"광개토대왕"},
+{id:"p6",v:1,n:"이사부",h:"異斯夫",by:"알 수 없어요",bn:"5세기 말에서 6세기에 활동했어요",sx:"남",job:"신라의 장군",nat:"신라",era:"삼국 시대",cat:"guard",
+ tag:"우산국(울릉도)을 신라 땅으로 만든 장군",
+ d:["512년 우산국(지금의 울릉도)을 신라에 속하게 했어요. 나무로 만든 사자를 배에 싣고 가서 항복을 받았다고 해요.","진흥왕에게 나라의 역사를 기록하자고 건의해 역사책 『국사』를 만들게 했어요.","진흥왕 때 대가야를 정복하는 등 신라의 땅을 넓히는 데 앞장섰어요."],
+ q:{t:"나라의 역사는 임금과 신하가 잘한 일과 잘못한 일을 기록해 오래도록 보여 주는 것입니다. 역사를 써 두지 않으면 뒷사람들이 무엇을 보겠습니까?",s:"『삼국사기』, 진흥왕에게 역사책 편찬을 건의하며 한 말(545년)",k:"기록"},
+ f:"우산국에는 울릉도와 그 주변 섬이 속해 있었다고 보아, 독도의 역사를 이야기할 때 이사부가 자주 나와요.",
+ m:"이사부 장군님, 나무 사자로 싸우지 않고 이긴 지혜가 놀라워요. 울릉도와 독도를 소중히 여길게요.",w:"이사부"},
+{id:"p7",v:1,n:"백결선생",h:"百結先生",sl:"백결",by:"알 수 없어요",bn:"5세기 무렵 신라 사람으로 알려져요",sx:"남",job:"신라의 음악가(거문고 연주가)",nat:"신라",era:"삼국 시대",cat:"art",
+ tag:"가난해도 음악으로 마음을 달랜 거문고 명인",
+ d:["너무 가난해 옷을 백 군데나 기워 입어 ‘백결(百結) 선생’이라 불렸어요.","거문고로 기쁨과 슬픔, 화남과 즐거움 같은 마음을 소리로 표현했어요.","설날을 앞두고 떡을 못 해 속상해하는 아내를 위해 거문고로 방아 찧는 소리를 연주했고, 이 곡이 ‘대악’으로 전해졌어요."],
+ q:{t:"죽고 사는 것은 운명이 있고, 부자가 되고 귀해지는 것은 하늘에 달렸소. 오는 것은 막을 수 없고 가는 것은 쫓을 수 없는데, 그대는 왜 슬퍼하오?",s:"『삼국사기』 열전, 아내를 위로하며 한 말",k:"기록"},
+ f:"백결 선생의 이야기는 『삼국사기』 열전에 짧게 실려 있어요. 그래서 진짜 이름이나 정확한 생애는 알려져 있지 않아요.",
+ m:"백결 선생님, 가난해도 음악으로 가족을 웃게 한 마음이 따뜻해요. 저도 속상한 친구를 위로해 볼게요.",w:"백결 선생"},
+{id:"p8",v:1,n:"계백",h:"階伯",life:"? – 660년",by:"알 수 없어요",bn:"백제의 마지막 시기에 활동했어요",sx:"남",job:"백제의 장군",nat:"백제",era:"삼국 시대",cat:"guard",
+ tag:"황산벌에서 끝까지 싸운 백제의 장군",
+ d:["660년 신라와 당나라 연합군이 쳐들어오자 결사대 5천 명을 이끌고 황산벌로 나갔어요.","몇 배나 많은 신라군과 네 번 싸워 네 번 모두 이겼어요.","마지막까지 물러서지 않고 싸우다 황산벌에서 목숨을 바쳤어요."],
+ q:{t:"옛날 월나라 구천은 5천 명으로 오나라 70만 대군을 무찔렀다. 오늘 우리도 힘을 다해 싸워 나라의 은혜에 보답하자.",s:"『삼국사기』 열전, 황산벌 싸움을 앞두고 군사들에게 한 말",k:"기록"},
+ m:"계백 장군님, 불리한 상황에서도 끝까지 책임을 다한 모습이 멋져요. 저도 맡은 일을 끝까지 해낼게요.",w:"계백"},
+{id:"p9",v:1,n:"관창",h:"官昌",life:"645년 – 660년",by:"645년",bn:"16살에 황산벌 싸움에 나갔어요",sx:"남",job:"신라의 화랑",nat:"신라",era:"삼국 시대",cat:"guard",
+ tag:"황산벌에서 용기를 보여 준 16살 화랑",
+ d:["어려서 화랑이 되었고, 말 타기와 활쏘기를 잘했어요.","660년 16살 나이에 부장이 되어 황산벌 싸움에 나갔어요.","홀로 백제 진영에 뛰어든 용기가 신라군의 마음을 움직여 싸움에서 이기는 데 큰 힘이 되었어요."],
+ q:{t:"적진에 들어가 장수를 베고 깃발을 빼앗지 못한 것이 한스럽습니다. 다시 들어가면 반드시 해내겠습니다.",s:"『삼국사기』 열전, 황산벌 싸움에서 한 말",k:"기록"},
+ m:"관창님, 저와 몇 살 차이 나지 않는 나이에 큰 용기를 냈다니 놀라워요. 저도 두려움을 이겨 내는 연습을 할게요.",w:"관창"},
+
+/* ── 2절 ── */
+{id:"p10",v:2,n:"김유신",h:"金庾信",life:"595년 – 673년",by:"595년",bn:"가야 왕족의 후손이에요",sx:"남",job:"신라의 장군",nat:"신라",era:"삼국 통일 시기",cat:"guard",
+ tag:"삼국 통일을 이끈 신라의 장군",
+ d:["15살에 화랑이 되어 ‘용화향도’라는 무리를 이끌었어요.","김춘추(태종 무열왕)와 힘을 합쳐 삼국 통일의 바탕을 만들었어요.","660년 황산벌에서 백제군을 무찌르는 등 삼국 통일에 큰 공을 세워 ‘태대각간’이라는 특별한 벼슬을 받았어요."],
+ q:{t:"옷깃을 잡아 흔들면 옷이 바로 펴지고, 벼리를 당기면 그물이 펼쳐진다고 들었다. 내가 그 옷깃과 벼리가 되겠다.",s:"『삼국사기』 열전, 낭비성 싸움(629년)에서 앞장서며 한 말",k:"기록"},
+ f:"김유신은 세상을 떠난 뒤 ‘흥무대왕’이라는 왕의 칭호를 받았어요. 신하가 왕으로 높여진 아주 드문 일이에요.",
+ m:"김유신 장군님, 스스로 ‘벼리’가 되겠다는 말씀이 멋져요. 저도 모둠 활동에서 먼저 나서 볼게요.",w:"김유신"},
+{id:"p11",v:2,n:"문무왕",h:"文武王",alt:"이름 김법민",sl:"문무",life:"626년 – 681년",by:"626년",bn:"661년에 왕이 되었어요",sx:"남",job:"신라의 제30대 왕",nat:"신라(통일 신라)",era:"삼국 통일 시기",cat:"king",
+ tag:"삼국 통일을 완성한 왕",
+ d:["668년 당나라와 힘을 합쳐 고구려를 무너뜨렸어요.","당나라가 한반도를 차지하려 하자 매소성(675년)과 기벌포(676년) 싸움에서 당나라 군대를 몰아냈어요.","죽은 뒤 동해의 용이 되어 나라를 지키겠다며 바다에 묻어 달라고 했어요."],
+ q:{t:"나는 죽은 뒤에 나라를 지키는 큰 용이 되어 나라를 지키고자 한다.",s:"『삼국유사』에 전하는 문무왕의 뜻",k:"기록"},
+ f:"경주 앞바다의 대왕암은 문무왕의 무덤으로 전해지며 ‘문무대왕릉’이라 불려요.",
+ m:"문무왕님, 죽어서도 나라를 지키겠다는 마음에 감동했어요. 경주 바다에 가면 대왕암을 꼭 찾아볼게요.",w:"문무왕"},
+{id:"p12",v:2,n:"원효",h:"元曉",life:"617년 – 686년",by:"617년",bn:"신라에서 태어났어요",sx:"남",job:"신라의 스님(승려)",nat:"신라",era:"삼국 통일 시기",cat:"faith",
+ tag:"누구나 쉽게 불교를 알 수 있게 한 스님",
+ d:["어려운 불교를 노래와 쉬운 말로 풀어 백성들에게 널리 알렸어요.","『대승기신론소』, 『금강삼매경론』 등 많은 책을 써서 불교 사상을 정리했어요.","서로 다른 주장들을 조화롭게 어우르려는 ‘화쟁’ 사상을 펼쳤어요."],
+ q:{t:"마음이 생기면 온갖 것이 생겨나고, 마음이 사라지면 움막과 무덤이 다르지 않다.",s:"『송고승전』에 전하는 말, 당나라 유학길에 깨달음을 얻고",k:"기록"},
+ f:"유명한 ‘해골물’ 이야기는 원효가 살던 때보다 훨씬 뒤에 중국 책에 덧붙여진 이야기예요. 더 오래된 기록에는 무덤 속에서 하룻밤을 보내고 깨달았다고 나와요.",
+ m:"원효 스님, 모든 것은 마음먹기에 달렸다는 가르침을 기억할게요. 시험 볼 때 떨리면 마음부터 다스려 볼게요.",w:"원효"},
+{id:"p13",v:2,n:"혜초",h:"慧超",life:"704년 – 787년",by:"704년 (추정)",bn:"신라에서 태어났어요",sx:"남",job:"신라의 스님, 여행가",nat:"신라",era:"통일 신라",cat:"faith",
+ tag:"인도와 서역을 여행하고 기록을 남긴 스님",
+ d:["어린 나이에 당나라로 건너가 불교를 공부했어요.","723년 무렵부터 약 4년 동안 인도(천축)와 중앙아시아, 서아시아 지역을 여행했어요.","여행 기록 『왕오천축국전』을 남겼어요. 이 책은 1908년 중국 둔황에서 발견되었어요."],
+ q:{t:"달 밝은 밤 고향 길을 바라보니, 뜬구름만 바람 따라 돌아가네.",s:"『왕오천축국전』에 실린 혜초의 시를 쉬운 말로 옮김",k:"시"},
+ f:"『왕오천축국전』은 지금 프랑스 국립도서관에 보관되어 있어요.",
+ m:"혜초 스님, 그 먼 길을 걸어서 여행하셨다니 정말 대단해요. 저도 나중에 세계를 여행하며 기록을 남기고 싶어요.",w:"혜초"},
+{id:"p14",v:2,n:"장보고",h:"張保皐",alt:"어릴 때 이름 궁복",life:"? – 846년",by:"알 수 없어요",bn:"8세기 말 무렵 태어났어요",sx:"남",job:"신라의 장군, 무역가",nat:"신라(통일 신라)",era:"통일 신라",cat:"guard",
+ tag:"바다를 지킨 해상왕",
+ d:["젊은 시절 당나라로 건너가 군대의 장교(무령군 소장)가 되었어요.","828년 완도에 청해진을 세우고 해적을 물리쳐 바다를 안전하게 했어요.","신라·당·일본을 잇는 바닷길 무역을 이끌어 ‘해상왕’으로 불려요."],
+ q:{t:"중국 곳곳에서 우리 사람들이 노비가 되어 있습니다. 청해에 진을 세워 해적이 사람들을 잡아가지 못하게 하고 싶습니다.",s:"『삼국사기』, 흥덕왕에게 청해진을 세우자고 청하며 한 말",k:"기록"},
+ f:"전라남도 완도에는 청해진 유적과 장보고기념관이 있어요.",
+ m:"장보고님, 잡혀가는 사람들을 구하려고 청해진을 세운 마음이 멋져요. 바다를 보면 장보고님이 떠오를 것 같아요.",w:"장보고"},
+{id:"p15",v:2,n:"대조영",h:"大祚榮",life:"? – 719년",by:"알 수 없어요",bn:"고구려가 멸망한 뒤 활동했어요",sx:"남",job:"발해를 세운 첫 번째 왕",nat:"발해",era:"남북국 시대",cat:"king",
+ tag:"고구려를 이어 발해를 세운 왕",
+ d:["고구려가 멸망한 뒤 고구려 유민과 말갈 사람들을 이끌었어요.","천문령에서 뒤쫓아 온 당나라 군대를 크게 물리쳤어요.","698년 동모산에서 나라를 세웠어요. 이 나라가 뒤에 ‘해동성국’이라 불릴 만큼 번성한 발해예요."],
+ q:null,
+ f:"발해의 왕이 일본에 보낸 글에 스스로를 ‘고려(고구려) 국왕’이라고 쓴 기록이 있어요. 발해가 고구려를 이은 나라라는 증거로 쓰여요.",
+ m:"대조영님, 나라가 무너진 뒤에도 사람들을 모아 다시 일어선 용기를 배우고 싶어요.",w:"대조영"},
+{id:"p16",v:2,n:"강감찬",h:"姜邯贊",life:"948년 – 1031년",by:"948년",bn:"고려 초에 태어났어요",sx:"남",job:"고려의 문신, 장군",nat:"고려",era:"고려",cat:"guard",
+ tag:"귀주 대첩을 이끈 고려의 명장",
+ d:["983년 과거 시험에 장원(1등)으로 합격한 학자 출신이에요.","1018년 거란이 세 번째로 쳐들어오자 70살의 나이에 고려군을 이끌었어요.","1019년 귀주에서 거란군을 크게 물리쳤고(귀주 대첩), 그 뒤 개경 둘레에 성(나성)을 쌓자고 건의했어요."],
+ q:null,
+ f:"서울 관악구의 ‘낙성대’는 별이 떨어진 곳이라는 뜻으로, 강감찬이 태어난 곳으로 전해져요.",
+ m:"강감찬 장군님, 나이가 많아도 나라를 위해 나선 모습이 멋져요. 낙성대에 가서 장군님을 떠올려 볼게요.",w:"강감찬"},
+{id:"p17",v:2,n:"서희",h:"徐熙",life:"942년 – 998년",by:"942년",bn:"고려 초에 태어났어요",sx:"남",job:"고려의 문신, 외교관",nat:"고려",era:"고려",cat:"scholar",
+ tag:"말 한마디로 땅을 넓힌 외교관",
+ d:["993년 거란이 쳐들어오자 거란 장수 소손녕과 직접 만나 담판을 벌였어요.","고려가 고구려를 이은 나라라는 점을 논리적으로 설명해 싸우지 않고 거란군을 돌려보냈어요.","압록강 동쪽의 강동 6주를 얻어 고려의 땅을 넓혔어요."],
+ q:{t:"우리나라는 고구려의 옛 땅이다. 그래서 나라 이름을 고려라 하고 평양을 도읍으로 삼았다.",s:"『고려사』, 소손녕과의 담판에서 한 말",k:"기록"},
+ m:"서희님, 싸우지 않고 대화로 문제를 해결한 지혜를 본받고 싶어요. 친구와 다툴 때 말로 잘 풀어 볼게요.",w:"서희"},
+{id:"p18",v:2,n:"최무선",h:"崔茂宣",life:"1325년 – 1395년",by:"1325년",bn:"고려 말에 태어났어요",sx:"남",job:"고려의 무관, 화약 발명가",nat:"고려",era:"고려 말",cat:"sci",
+ tag:"우리 손으로 화약을 만든 발명가",
+ d:["화약의 재료인 염초 만드는 법을 원나라 사람 이원에게 배워 화약을 만들었어요.","1377년 화통도감을 세우자고 건의해 여러 가지 화포(화약 무기)를 만들었어요.","1380년 진포 싸움에서 화포로 왜구의 배 500척을 불태워 크게 이겼어요."],
+ q:null,
+ f:"최무선의 아들 최해산도 조선 시대에 화약 무기를 만드는 일을 이어 갔어요.",
+ m:"최무선님, 포기하지 않고 화약 만드는 법을 알아낸 끈기가 대단해요. 저도 궁금한 건 끝까지 탐구해 볼게요.",w:"최무선"},
+{id:"p19",v:2,n:"김부식",h:"金富軾",life:"1075년 – 1151년",by:"1075년",bn:"고려 중기에 태어났어요",sx:"남",job:"고려의 문신, 역사가",nat:"고려",era:"고려",cat:"scholar",
+ tag:"『삼국사기』를 쓴 역사가",
+ d:["1145년 왕의 명령을 받아 『삼국사기』를 펴냈어요.","『삼국사기』는 지금 남아 있는 우리나라 역사책 가운데 가장 오래된 책이에요.","글솜씨가 뛰어나 송나라에 사신으로 가서도 이름을 떨쳤고, 높은 벼슬에 올라 나랏일을 맡았어요."],
+ q:{t:"옛 기록은 글이 거칠고 빠진 일이 많아, 임금과 신하가 잘한 일과 잘못한 일을 뒷사람에게 교훈으로 남길 수 없었습니다.",s:"『삼국사기』를 임금에게 바치며 올린 글(진삼국사표)",k:"글"},
+ f:"『삼국사기』는 2018년에 국보로 지정되었어요.",
+ m:"김부식님, 『삼국사기』 덕분에 삼국 시대 이야기를 알 수 있어요. 저도 우리 반의 역사를 기록해 볼게요.",w:"김부식"},
+{id:"p20",v:2,n:"지눌",h:"知訥",alt:"보조국사",life:"1158년 – 1210년",by:"1158년",bn:"고려 중기에 태어났어요",sx:"남",job:"고려의 스님",nat:"고려",era:"고려",cat:"faith",
+ tag:"땅을 짚고 일어서라고 가르친 스님",
+ d:["불교가 흐트러지자 뜻이 같은 스님들과 ‘정혜결사’를 만들어 바르게 수행하자는 운동을 이끌었어요.","마음을 모으는 수행과 지혜를 함께 닦아야 한다는 ‘정혜쌍수’를 가르쳤어요.","순천 송광사를 수행의 중심지로 키웠고, 그 가르침은 오늘날 조계종의 바탕이 되었어요."],
+ q:{t:"땅에 넘어진 사람은 땅을 짚고 일어나야 한다.",s:"지눌의 글 『권수정혜결사문』",k:"글"},
+ m:"지눌 스님, 넘어진 곳을 짚고 일어나라는 말씀이 힘이 돼요. 실수해도 다시 일어날게요.",w:"지눌"},
+{id:"p21",v:2,n:"의천",h:"義天",alt:"대각국사",life:"1055년 – 1101년",by:"1055년",bn:"고려 문종의 아들로 태어났어요",sx:"남",job:"고려의 스님(왕자 출신)",nat:"고려",era:"고려",cat:"faith",
+ tag:"왕자에서 스님이 된 불교 학자",
+ d:["고려 문종의 아들로 태어났지만 11살에 스님이 되었어요.","송나라에 건너가 불교를 공부하고, 돌아와 불교 책을 모아 ‘교장’을 펴냈어요.","해동 천태종을 열어 교종과 선종을 하나로 모으려 했고, 동전(화폐)을 쓰자고 주장하기도 했어요."],
+ q:{t:"교관겸수(敎觀兼修): 경전 공부와 마음 닦기를 함께 해야 한다.",s:"의천이 강조한 가르침",k:"생각"},
+ f:"의천이 화폐를 쓰자고 주장한 뒤 고려에서는 ‘해동통보’ 같은 동전이 만들어졌어요.",
+ m:"의천 스님, 왕자였는데도 공부의 길을 고르신 모습이 멋져요. 저도 배우는 것과 생각하는 것을 함께 할게요.",w:"의천"},
+{id:"p22",v:2,n:"이종무",h:"李從茂",life:"1360년 – 1425년",by:"1360년",bn:"고려 말에 태어나 조선 초에 활약했어요",sx:"남",job:"조선의 장군",nat:"조선",era:"조선 초",cat:"guard",
+ tag:"대마도 정벌을 이끈 장군",
+ d:["고려 말 강원도 등에 쳐들어온 왜구를 물리쳐 이름을 알렸어요.","1419년(세종 1년) 배 227척과 군사 1만 7천여 명을 이끌고 왜구의 근거지 대마도를 정벌했어요.","왜구의 근거지를 공격해 바닷가 백성들이 겪던 피해를 줄였어요."],
+ q:null,
+ m:"이종무 장군님, 바닷가 사람들을 지키려고 먼바다로 나간 용기에 감사드려요.",w:"이종무"},
+{id:"p23",v:2,n:"정몽주",h:"鄭夢周",alt:"포은",life:"1337년 – 1392년",by:"1337년",bn:"고려 말에 태어났어요",sx:"남",job:"고려의 학자, 정치가",nat:"고려",era:"고려 말",cat:"scholar",
+ tag:"끝까지 고려를 지킨 충신",
+ d:["성리학을 깊이 연구해 우리나라 성리학의 으뜸 스승으로 존경받았어요.","명나라와 일본에 사신으로 가서 나라 사이의 어려운 문제를 풀었어요. 일본에서는 잡혀간 고려 사람들을 데려왔어요.","학교(오부학당과 향교)를 세워 교육에 힘썼고, 끝까지 고려에 충성하다 선죽교에서 목숨을 잃었어요."],
+ q:{t:"이 몸이 죽고 죽어 일백 번 고쳐 죽어 / 백골이 진토되어 넋이라도 있고 없고 / 임 향한 일편단심이야 가실 줄이 있으랴",s:"정몽주가 지었다고 전하는 시조 「단심가」",k:"시"},
+ m:"정몽주님, 한번 정한 마음을 끝까지 지킨 모습이 대단해요. 저도 친구와의 약속을 꼭 지킬게요.",w:"정몽주"},
+{id:"p24",v:2,n:"문익점",h:"文益漸",alt:"삼우당",life:"1329년 – 1398년",by:"1329년",bn:"1331년이라는 기록도 있어요",sx:"남",job:"고려의 문신(관리)",nat:"고려",era:"고려 말",cat:"sci",
+ tag:"목화씨를 들여와 따뜻한 옷을 선물한 사람",
+ d:["1363년 원나라에 사신으로 갔다가 돌아오며 목화씨를 가져왔어요.","장인 정천익과 함께 목화를 길렀고, 몇 해 만에 재배에 성공해 씨를 널리 나눴어요.","목화로 만든 무명옷이 퍼지면서 백성들이 추운 겨울을 따뜻하게 날 수 있게 되었어요."],
+ q:null,
+ f:"붓 뚜껑에 목화씨를 몰래 숨겨 왔다는 이야기는 뒤에 생긴 이야기로 보는 의견이 많아요. 『조선왕조실록』에는 목화씨를 얻어 왔다고만 나와요.",
+ m:"문익점님, 덕분에 겨울에 따뜻한 솜옷을 입을 수 있었대요. 작은 씨앗 하나가 세상을 바꿀 수 있다는 걸 배웠어요.",w:"문익점"},
+{id:"p25",v:2,n:"최충",h:"崔沖",alt:"해동공자",life:"984년 – 1068년",by:"984년",bn:"고려 초에 태어났어요",sx:"남",job:"고려의 문신, 교육자",nat:"고려",era:"고려",cat:"scholar",
+ tag:"사립 학교를 세운 ‘해동공자’",
+ d:["문종 때 문하시중 등 가장 높은 벼슬까지 올랐어요.","벼슬에서 물러난 뒤 ‘9재 학당’이라는 사립 학교를 세워 학생들을 가르쳤어요.","많은 인재를 길러 내 ‘바다 동쪽(우리나라)의 공자’라는 뜻의 ‘해동공자’로 불렸어요."],
+ q:{t:"뜰에 가득한 달빛은 연기 없는 촛불이요, 자리에 드는 산 빛은 청하지 않은 손님이라.",s:"최충이 지었다고 전하는 시를 쉬운 말로 옮김",k:"시"},
+ m:"최충 선생님, 학교를 세워 많은 사람을 가르치신 덕분에 공부하는 문화가 퍼졌대요. 저도 열심히 배울게요.",w:"최충"},
+{id:"p26",v:2,n:"일연",h:"一然",life:"1206년 – 1289년",by:"1206년",bn:"고려 후기에 태어났어요",sx:"남",job:"고려의 스님, 역사가",nat:"고려",era:"고려",cat:"faith",
+ tag:"『삼국유사』를 쓴 스님",
+ d:["『삼국유사』를 지어 삼국 시대의 역사와 이야기를 남겼어요.","『삼국유사』에 단군의 고조선 건국 이야기를 실어 우리 역사의 시작을 고조선까지 올려 놓았어요.","신라 사람들의 노래인 향가 14수와 여러 설화를 기록해 소중한 자료로 남겼어요."],
+ q:{t:"삼국의 시조가 모두 신비롭게 나타났다고 해서 어찌 이상하게 여기겠는가.",s:"『삼국유사』 기이편 머리글",k:"글"},
+ m:"일연 스님, 단군 이야기를 기록해 주셔서 우리 역사의 시작을 알 수 있어요. 옛이야기를 소중히 여길게요.",w:"일연"},
+
+/* ── 3절 ── */
+{id:"p27",v:3,n:"황희",h:"黃喜",alt:"방촌",life:"1363년 – 1452년",by:"1363년",bn:"고려 말에 태어났어요",sx:"남",job:"조선의 재상(영의정)",nat:"조선",era:"조선 전기",cat:"scholar",
+ tag:"18년 동안 영의정을 지낸 재상",
+ d:["세종 때 18년 동안 영의정을 맡아 나라 살림을 이끌었어요.","법과 제도를 정리하고 세종의 여러 정책이 자리 잡도록 도왔어요.","너그럽고 검소한 성품으로 존경받아 지금도 청렴한 관리의 대표로 꼽혀요."],
+ q:{t:"네 말도 옳고, 네 말도 옳다.",s:"다투는 두 사람의 말을 듣고 했다고 전하는 일화",k:"일화"},
+ m:"황희 정승님, 양쪽 이야기를 모두 귀 기울여 들으신 모습을 배우고 싶어요. 친구들 이야기를 끝까지 들을게요.",w:"황희"},
+{id:"p28",v:3,n:"맹사성",h:"孟思誠",alt:"고불",life:"1360년 – 1438년",by:"1360년",bn:"고려 말에 태어났어요",sx:"남",job:"조선의 재상(좌의정)",nat:"조선",era:"조선 전기",cat:"scholar",
+ tag:"소를 타고 다닌 검소한 재상",
+ d:["세종 때 좌의정까지 올라 황희와 함께 나라를 이끌었어요.","음악에 밝아 박연과 함께 궁중 음악을 정리했어요.","높은 벼슬에 있으면서도 소를 타고 다녔다고 전해질 만큼 검소하게 살았어요."],
+ q:{t:"강호에 봄이 드니 미친 흥이 절로 난다 / 탁료계변에 금린어 안주로다 / 이 몸이 한가해옴도 역군은이샷다",s:"맹사성의 연시조 「강호사시가」 가운데 봄 노래",k:"시"},
+ m:"맹사성 정승님, 높은 자리에서도 검소하게 사신 모습이 멋져요. 저도 물건을 아껴 쓸게요.",w:"맹사성"},
+{id:"p29",v:3,n:"장영실",h:"蔣英實",by:"알 수 없어요",bn:"14세기 말 무렵 태어난 것으로 보여요",sx:"남",job:"조선의 과학자, 기술자",nat:"조선",era:"조선 전기",cat:"sci",
+ tag:"스스로 시간을 알리는 물시계를 만든 과학자",
+ d:["관청의 노비 출신이었지만 뛰어난 솜씨를 인정받아 세종 때 관리가 되었어요.","1434년 스스로 종과 북을 울려 시간을 알리는 물시계 ‘자격루’를 만들었어요.","천체를 관측하는 간의·혼천의, 해시계 앙부일구, 금속 활자 갑인자를 만드는 데 참여했어요."],
+ q:null,
+ f:"1442년 세종이 탈 가마가 부서진 사건 뒤로 장영실에 대한 기록이 끊겨, 그 뒤의 삶은 알려져 있지 않아요.",
+ m:"장영실님, 신분의 벽을 넘어 꿈을 이룬 모습이 감동적이에요. 저도 발명 아이디어를 계속 떠올려 볼게요.",w:"장영실"},
+{id:"p30",v:3,n:"이이",h:"李珥",alt:"율곡",life:"1536년 – 1584년",by:"1536년",bn:"강릉 오죽헌에서 태어났어요",sx:"남",job:"조선의 학자, 정치가",nat:"조선",era:"조선 중기",cat:"scholar",
+ tag:"과거에서 아홉 번 장원한 학자",
+ d:["과거 시험에서 아홉 번이나 1등(장원)을 해 ‘구도장원공’이라 불렸어요.","『성학집요』, 『격몽요결』 등 공부와 바른 생활에 관한 책을 썼어요.","백성의 세금 부담을 줄이는 개혁을 주장하는 등 나라를 바로 세울 방법을 내놓았어요."],
+ q:{t:"사람이 이 세상에 태어나 학문을 하지 않으면 사람다운 사람이 될 수 없다.",s:"『격몽요결』 첫머리",k:"글"},
+ f:"‘10만 양병설’은 이이가 세상을 떠난 뒤 제자들이 쓴 글에 처음 나와서, 실제로 이런 주장을 했는지는 의견이 나뉘어요.",
+ m:"율곡 선생님, 공부는 사람답게 살기 위한 것이라는 말씀을 기억할게요. 오늘 할 공부를 미루지 않을게요.",w:"이이"},
+{id:"p31",v:3,n:"이황",h:"李滉",alt:"퇴계",life:"1501년 – 1570년",by:"1501년",bn:"경상도 예안(지금의 안동)에서 태어났어요",sx:"남",job:"조선의 학자",nat:"조선",era:"조선 중기",cat:"scholar",
+ tag:"조선 성리학을 꽃피운 학자",
+ d:["조선의 성리학을 깊이 연구해 크게 발전시켰어요.","고향 안동에 도산서당을 세워 많은 제자를 길렀어요.","어린 임금 선조를 위해 성리학의 핵심을 열 개의 그림으로 정리한 『성학십도』를 지어 바쳤어요."],
+ q:{t:"청산은 어찌하여 만고에 푸르르며 / 유수는 어찌하여 주야에 긋지 아니는고 / 우리도 그치지 말아 만고상청 하리라",s:"이황의 연시조 「도산십이곡」 가운데",k:"시"},
+ f:"천 원짜리 지폐에 이황의 얼굴이 들어 있어요.",
+ m:"퇴계 선생님, 푸른 산처럼 쉬지 않고 배우라는 시가 마음에 남아요. 꾸준히 책을 읽을게요.",w:"이황"},
+{id:"p32",v:3,n:"신사임당",h:"申師任堂",sl:"사임당",life:"1504년 – 1551년",by:"1504년",bn:"강릉에서 태어났어요",sx:"여",job:"조선의 화가, 서예가, 시인",nat:"조선",era:"조선 중기",cat:"art",
+ tag:"풀벌레를 섬세하게 그린 화가",
+ d:["풀과 벌레, 꽃을 섬세하게 그린 ‘초충도’ 같은 그림을 남겼어요.","글씨와 시에도 뛰어나 여러 작품이 전해져요.","학자 이이(율곡)의 어머니로, 자녀들을 훌륭하게 키운 것으로도 알려져 있어요."],
+ q:{t:"늙으신 어머니를 강릉에 두고 / 홀로 서울로 떠나는 이 마음 / 이따금 고개 돌려 북촌을 바라보니 / 흰 구름 아래 저녁 산만 푸르구나",s:"신사임당의 시 「유대관령망친정」(대관령을 넘으며 친정을 바라보다)을 쉬운 말로 옮김",k:"시"},
+ f:"오만 원짜리 지폐에 신사임당의 얼굴과 그림이 담겨 있어요.",
+ m:"신사임당님, 작은 풀벌레까지 자세히 관찰한 그림이 정말 멋져요. 저도 관찰 일기를 써 볼게요.",w:"신사임당"},
+{id:"p33",v:3,n:"곽재우",h:"郭再祐",alt:"홍의장군",life:"1552년 – 1617년",by:"1552년",bn:"경상도 의령에서 태어났어요",sx:"남",job:"조선의 의병장",nat:"조선",era:"조선 중기",cat:"guard",
+ tag:"가장 먼저 일어선 붉은 옷의 의병장",
+ d:["1592년 임진왜란이 일어나자 경상도 의령에서 가장 먼저 의병을 일으켰어요.","붉은 옷을 입고 앞장서 싸워 ‘홍의장군’이라 불렸어요.","정암진 싸움에서 이겨 왜군이 전라도로 가는 길을 막았어요."],
+ q:null,
+ m:"곽재우 장군님, 누가 시키지 않았는데도 먼저 나선 용기가 대단해요. 저도 필요한 일에 먼저 손을 들게요.",w:"곽재우"},
+{id:"p34",v:3,n:"조헌",h:"趙憲",alt:"중봉",life:"1544년 – 1592년",by:"1544년",bn:"경기도 김포에서 태어났어요",sx:"남",job:"조선의 문신, 의병장",nat:"조선",era:"조선 중기",cat:"guard",
+ tag:"칠백 의병과 함께 싸운 의병장",
+ d:["임진왜란이 일어나자 충청도 옥천에서 의병을 일으켰어요.","영규 대사가 이끄는 승병과 함께 왜군에게 빼앗긴 청주성을 되찾았어요.","금산 싸움에서 7백 명의 의병과 함께 끝까지 싸웠어요. 이들을 모신 무덤이 ‘칠백의총’이에요."],
+ q:null,
+ m:"조헌 선생님, 칠백 명이 끝까지 함께한 이야기를 듣고 마음이 뭉클했어요. 금산 칠백의총에 꼭 가 볼게요.",w:"조헌"},
+{id:"p35",v:3,n:"김시민",h:"金時敏",life:"1554년 – 1592년",by:"1554년",bn:"충청도 목천(지금의 천안)에서 태어났어요",sx:"남",job:"조선의 무관(진주 목사)",nat:"조선",era:"조선 중기",cat:"guard",
+ tag:"진주성을 지켜 낸 진주 목사",
+ d:["진주 목사가 되어 성을 고치고 화약과 무기를 미리 준비했어요.","1592년 3,800여 명의 군사로 2만 명이 넘는 왜군을 물리쳤어요(진주 대첩).","진주성을 지켜 내 왜군이 곡식이 많은 전라도로 들어가는 것을 막았어요."],
+ q:null,
+ f:"진주 대첩은 한산도 대첩, 행주 대첩과 함께 ‘임진왜란 3대 대첩’으로 꼽혀요.",
+ m:"김시민 장군님, 미리 준비하는 것이 얼마나 중요한지 배웠어요. 저도 준비물을 미리 챙길게요.",w:"김시민"},
+{id:"p36",v:3,n:"이순신",h:"李舜臣",alt:"충무공",life:"1545년 – 1598년",by:"1545년",bn:"한성(지금의 서울)에서 태어났어요",sx:"남",job:"조선의 장군(삼도수군통제사)",nat:"조선",era:"조선 중기",cat:"guard",
+ tag:"바다를 지킨 조선의 영웅",
+ d:["임진왜란 전에 거북선을 만들고 수군을 훈련시키며 전쟁에 대비했어요.","1592년 한산도 대첩 등 바다 싸움에서 잇따라 이겨 왜군의 보급로를 끊었어요.","1597년 명량 해전에서 13척의 배로 130여 척의 왜선과 싸워 이겼어요."],
+ q:{t:"죽고자 하면 살고, 살고자 하면 죽는다. (必死則生 必生則死)",s:"『난중일기』, 명량 해전 하루 전(1597년) 장수들에게 한 말",k:"기록"},
+ f:"이순신이 전쟁 중에 쓴 『난중일기』는 유네스코 세계기록유산이에요.",
+ m:"이순신 장군님, 어려운 상황에서도 포기하지 않은 모습이 존경스러워요. 저도 힘들 때 장군님을 떠올릴게요.",w:"이순신"},
+{id:"p37",v:3,n:"세종대왕",h:"世宗",alt:"이름 이도",sl:"세종",life:"1397년 – 1450년",by:"1397년",bn:"1418년에 왕이 되었어요",sx:"남",job:"조선의 제4대 왕",nat:"조선",era:"조선 전기",cat:"king",note:"노래 속 ‘태정태세문단세’의 ‘세’예요.",
+ tag:"한글을 만든 임금",
+ d:["1443년 훈민정음(한글)을 만들고 1446년 백성들에게 널리 알렸어요.","집현전을 키워 학자들이 마음껏 연구하게 했어요.","장영실 등과 함께 측우기, 해시계 같은 과학 기구를 만들었고, 4군과 6진을 개척해 북쪽 땅을 넓혔어요."],
+ q:{t:"우리나라 말이 중국과 달라 한자로는 서로 잘 통하지 않는다. 그래서 어리석은 백성이 말하고 싶은 것이 있어도 끝내 제 뜻을 펴지 못하는 사람이 많다. 내가 이를 딱하게 여겨 새로 스물여덟 글자를 만드니, 사람마다 쉽게 익혀 날마다 편하게 쓰게 하고자 할 뿐이다.",s:"『훈민정음』 머리글을 쉬운 말로 옮김",k:"글"},
+ f:"『훈민정음 해례본』은 국보이자 유네스코 세계기록유산이에요.",
+ m:"세종대왕님, 한글 덕분에 제 생각을 마음껏 글로 쓸 수 있어요. 오늘 일기도 한글로 정성껏 쓸게요!",w:"세종"},
+{id:"p38",v:3,n:"성삼문",h:"成三問",alt:"매죽헌",life:"1418년 – 1456년",by:"1418년",bn:"충청도 홍주(지금의 홍성)에서 태어났어요",sx:"남",job:"조선의 학자(집현전 학사)",nat:"조선",era:"조선 전기",cat:"scholar",note:"노래 속 ‘사육신’ 가운데 한 사람이에요.",
+ tag:"단종을 향한 충성을 지킨 사육신",
+ d:["집현전 학자로 훈민정음을 만드는 일을 도왔어요.","우리 한자음을 정리한 『동국정운』을 펴내는 데 참여했어요.","수양대군(세조)이 왕위를 빼앗자 단종을 다시 왕으로 세우려다 목숨을 잃어 ‘사육신’으로 기억돼요."],
+ q:{t:"이 몸이 죽어 가서 무엇이 될꼬 하니 / 봉래산 제일봉에 낙락장송 되었다가 / 백설이 만건곤할 제 독야청청하리라",s:"성삼문이 지었다고 전하는 시조",k:"시"},
+ f:"사육신은 성삼문, 박팽년, 하위지, 이개, 유성원, 유응부 여섯 사람이에요.",
+ m:"성삼문 선생님, 옳다고 믿는 일을 끝까지 지킨 마음을 배우고 싶어요.",w:"성삼문"},
+{id:"p39",v:3,n:"김시습",h:"金時習",alt:"매월당",life:"1435년 – 1493년",by:"1435년",bn:"한성(지금의 서울)에서 태어났어요",sx:"남",job:"조선의 학자, 문학가",nat:"조선",era:"조선 전기",cat:"art",note:"노래 속 ‘생육신’ 가운데 한 사람이에요.",
+ tag:"우리나라 첫 한문 소설을 쓴 생육신",
+ d:["다섯 살 때 시를 지을 만큼 뛰어나 ‘오세 신동’으로 불렸어요.","세조가 단종의 왕위를 빼앗자 벼슬을 하지 않고 전국을 떠돌며 살았어요(생육신).","우리나라 최초의 한문 소설로 꼽히는 『금오신화』를 썼어요."],
+ q:null,
+ f:"생육신은 김시습, 원호, 이맹전, 조려, 성담수, 남효온 여섯 사람이에요.",
+ m:"김시습 선생님, 자신의 생각대로 살며 멋진 이야기를 남기신 모습이 인상 깊어요. 저도 이야기를 지어 볼게요.",w:"김시습"},
+{id:"p40",v:3,n:"논개",h:"論介",life:"? – 1593년",by:"알 수 없어요",bn:"임진왜란 때 진주에 살았어요",sx:"여",job:"나라를 위해 몸을 던진 의로운 여성(의기)",nat:"조선",era:"조선 중기",cat:"guard",
+ tag:"진주 남강에서 나라를 지킨 의로운 여성",
+ d:["1593년 임진왜란 때 진주성이 왜군에게 함락되자 나라를 위해 목숨을 걸기로 했어요.","왜군이 승리를 축하하는 자리에서 왜장을 끌어안고 남강에 몸을 던졌어요.","그 바위는 ‘의로운 바위’라는 뜻의 ‘의암’으로 불리고, 진주성 안 의기사에서 그를 기리고 있어요."],
+ q:null,
+ f:"논개 이야기는 유몽인의 『어우야담』에 처음 기록되었어요. 그래서 논개가 어떤 집안 사람이었는지는 의견이 여러 가지예요.",
+ m:"논개님, 나라를 위해 큰 용기를 내신 이야기를 잊지 않을게요.",w:"논개"},
+{id:"p41",v:3,n:"권율",h:"權慄",life:"1537년 – 1599년",by:"1537년",bn:"한성(지금의 서울)에서 태어났어요",sx:"남",job:"조선의 장군(도원수)",nat:"조선",era:"조선 중기",cat:"guard",
+ tag:"행주산성을 지켜 낸 장군",
+ d:["1592년 이치 싸움에서 이겨 왜군이 전라도로 들어오는 것을 막았어요.","1593년 행주산성에서 적은 수의 군사로 3만 명이 넘는 왜군을 물리쳤어요(행주 대첩).","조선 육군을 지휘하는 도원수가 되어 전쟁을 이끌었어요."],
+ q:null,
+ f:"‘행주치마’라는 말이 행주 대첩에서 생겼다는 이야기가 있지만, 사실은 그전부터 쓰이던 말이에요.",
+ m:"권율 장군님, 적은 군사로도 힘을 모아 이긴 이야기가 멋져요. 우리 반도 힘을 모으면 뭐든 할 수 있을 거예요.",w:"권율"},
+
+/* ── 4절 ── */
+{id:"p42",v:4,n:"삼학사",h:"三學士",alt:"홍익한 · 윤집 · 오달제",life:"1637년에 목숨을 잃음",by:"1586년 · 1606년 · 1609년",bn:"홍익한, 윤집, 오달제 순서예요",sx:"남 (세 사람)",job:"조선의 문신(학자)",nat:"조선",era:"조선 후기",cat:"scholar",
+ tag:"끝까지 뜻을 굽히지 않은 세 학자",
+ d:["1636년 병자호란 때 청나라와 화친하는 것에 끝까지 반대했어요.","전쟁이 끝난 뒤 청나라 심양으로 끌려가서도 뜻을 굽히지 않았어요.","1637년 심양에서 목숨을 잃어, 절개를 지킨 선비의 상징으로 기억되고 있어요."],
+ q:null,
+ f:"그때 조선에는 나라를 지키려면 청나라와 화친해야 한다는 의견(최명길 등)도 있었어요. 두 생각을 비교하며 토론해 보세요.",
+ m:"삼학사님, 어려운 상황에서도 자신의 뜻을 지키신 모습이 대단해요.",w:"삼학사"},
+{id:"p43",v:4,n:"박문수",h:"朴文秀",alt:"기은",life:"1691년 – 1756년",by:"1691년",bn:"조선 숙종 때 태어났어요",sx:"남",job:"조선의 문신(어사)",nat:"조선",era:"조선 후기",cat:"scholar",
+ tag:"백성의 형편을 살핀 어사",
+ d:["1727년 경상도에 어사로 파견되어 백성들의 어려운 형편을 살폈어요.","1728년 이인좌의 난을 진압하는 데 공을 세웠어요.","호조판서 등을 지내며 백성의 군역 부담을 줄이는 제도 개혁에 힘썼어요."],
+ q:null,
+ f:"박문수가 몰래 다니며 나쁜 관리를 벌했다는 ‘암행어사 이야기’는 대부분 뒤에 생긴 설화예요. 실제 기록 속 박문수와 비교해 보세요.",
+ m:"박문수 어사님, 백성의 어려움을 직접 보고 도우려 한 마음이 멋져요. 저도 주변에 도움이 필요한 사람이 없는지 살필게요.",w:"박문수"},
+{id:"p44",v:4,n:"한석봉",h:"韓濩",alt:"본명 한호, 호 석봉",sl:"석봉",life:"1543년 – 1605년",by:"1543년",bn:"개성에서 태어났어요",sx:"남",job:"조선의 서예가",nat:"조선",era:"조선 중기",cat:"art",
+ tag:"조선 최고의 명필",
+ d:["반듯하고 힘 있는 자기만의 글씨체(석봉체)를 만들었어요.","나라의 중요한 외교 문서를 쓰는 일을 맡았고, 중국 사신들도 그의 글씨를 귀하게 여겼어요.","그가 쓴 『천자문』(석봉천자문)은 오랫동안 아이들이 글씨를 배우는 교재로 쓰였어요."],
+ q:null,
+ f:"불을 끄고 어머니는 떡을 썰고 한석봉은 글씨를 썼다는 이야기는 전해 오는 일화예요.",
+ m:"한석봉 선생님, 꾸준히 연습해서 명필이 되셨다니 저도 글씨 연습을 꾸준히 해 볼게요.",w:"한호"},
+{id:"p45",v:4,n:"김홍도",h:"金弘道",alt:"단원",life:"1745년 – ?",by:"1745년",bn:"세상을 떠난 해는 1806년 무렵으로 보여요",sx:"남",job:"조선의 화가(도화서 화원)",nat:"조선",era:"조선 후기",cat:"art",
+ tag:"백성의 하루를 그린 풍속화가",
+ d:["나라의 그림을 맡은 도화서 화원으로, 정조의 초상화(어진)를 그리는 데 참여했어요.","‘씨름’, ‘서당’, ‘무동’ 등 백성들의 생활 모습을 생생하게 그린 풍속화를 남겼어요.","정조의 명으로 금강산을 그리는 등 산수화와 신선 그림에도 뛰어났어요."],
+ q:null,
+ f:"『단원 풍속도첩』은 보물로 지정되어 국립중앙박물관에 있어요.",
+ m:"김홍도 선생님, ‘씨름’ 그림을 보면 사람들의 웃음소리가 들리는 것 같아요. 저도 우리 반 모습을 그려 볼게요.",w:"김홍도"},
+{id:"p46",v:4,n:"김삿갓",h:"金炳淵",alt:"본명 김병연",sl:"삿갓",life:"1807년 – 1863년",by:"1807년",bn:"경기도 양주에서 태어났어요",sx:"남",job:"조선의 방랑 시인",nat:"조선",era:"조선 후기",cat:"art",
+ tag:"삿갓 쓰고 전국을 떠돈 방랑 시인",
+ d:["큰 삿갓을 쓰고 전국을 떠돌아다니며 시를 지었어요.","한자의 소리와 뜻을 재치 있게 섞은 시로 잘난 척하는 양반들을 꼬집었어요.","그가 남긴 많은 시가 사람들 사이에 전해져 지금까지 사랑받고 있어요."],
+ q:{t:"이대로 저대로 되어 가는 대로, 바람 치는 대로 물결 치는 대로",s:"김삿갓이 지었다고 전하는 한시 「죽시(대나무 시)」를 우리말로 옮김",k:"시"},
+ f:"강원도 영월에 김삿갓의 무덤과 김삿갓문학관이 있어요.",
+ m:"김삿갓 시인님, 말장난 시가 너무 재미있어요. 저도 재치 있는 시를 지어 볼게요.",w:"김삿갓"},
+{id:"p47",v:4,n:"김정호",h:"金正浩",alt:"고산자",by:"알 수 없어요",bn:"1804년 무렵으로 짐작해요",sx:"남",job:"조선의 지리학자, 지도 제작자",nat:"조선",era:"조선 후기",cat:"sci",
+ tag:"「대동여지도」를 만든 지리학자",
+ d:["1834년 우리나라 전국 지도인 「청구도」를 만들었어요.","1861년 목판으로 찍어 낸 「대동여지도」를 만들었어요. 22첩으로 나뉘어 접어서 들고 다닐 수 있고, 모두 펼치면 세로가 약 6.6m나 돼요.","전국의 지리 정보를 정리한 책 『대동지지』를 썼어요."],
+ q:null,
+ f:"김정호가 백두산에 여러 번 올랐다거나 지도 때문에 감옥에 갇혔다는 이야기는 확실한 기록이 없어요. 일제 강점기 교과서에서 퍼진 이야기라는 연구가 많아요.",
+ m:"김정호 선생님, 휴대폰 지도도 없던 때에 이렇게 정확한 지도를 만드셨다니 놀라워요. 저도 우리 동네 지도를 그려 볼게요.",w:"김정호"},
+{id:"p48",v:4,n:"영조",h:"英祖",life:"1694년 – 1776년",by:"1694년",bn:"1724년에 왕이 되었어요",sx:"남",job:"조선의 제21대 왕",nat:"조선",era:"조선 후기",cat:"king",
+ tag:"탕평책을 편 왕",
+ d:["여러 무리(붕당)의 인재를 고르게 쓰는 ‘탕평책’으로 신하들의 다툼을 줄이려 했어요.","1750년 균역법을 만들어 백성이 내던 군포를 2필에서 1필로 줄였어요.","억울한 백성이 직접 북을 쳐서 알릴 수 있게 신문고를 다시 설치했어요."],
+ q:{t:"두루 어울리고 편 가르지 않는 것은 군자의 공정한 마음이요, 편 가르고 두루 어울리지 않는 것은 소인의 사사로운 마음이다.",s:"영조가 성균관에 세운 탕평비(1742년)의 글",k:"기록"},
+ f:"영조는 조선 왕 가운데 가장 오래(약 52년) 왕위에 있었어요.",
+ m:"영조 대왕님, 편을 가르지 말고 고루 어울리라는 말씀처럼 우리 반도 모두 함께 놀게요.",w:"영조"},
+{id:"p49",v:4,n:"정조",h:"正祖",life:"1752년 – 1800년",by:"1752년",bn:"1776년에 왕이 되었어요",sx:"남",job:"조선의 제22대 왕",nat:"조선",era:"조선 후기",cat:"king",
+ tag:"규장각과 수원 화성을 만든 왕",
+ d:["1776년 왕실 도서관이자 연구 기관인 규장각을 세워 학자들을 길렀어요.","정약용 등과 함께 1794년부터 1796년까지 수원 화성을 쌓았어요.","신분 때문에 벼슬에 오르기 어려웠던 서얼 출신 인재(박제가 등)도 능력에 따라 뽑아 썼어요."],
+ q:{t:"만천명월주인옹(萬川明月主人翁): 수많은 냇물에 비치는 밝은 달의 주인",s:"정조가 스스로 지어 부른 호. 백성 한 사람 한 사람을 고루 비추는 임금이 되겠다는 뜻을 담았어요.",k:"생각"},
+ f:"수원 화성은 유네스코 세계유산이에요.",
+ m:"정조 대왕님, 신분보다 능력을 보신 마음이 멋져요. 수원 화성에 가서 성곽길을 걸어 볼게요.",w:"정조"},
+{id:"p50",v:4,n:"정약용",h:"丁若鏞",alt:"다산",life:"1762년 – 1836년",by:"1762년",bn:"경기도 광주(지금의 남양주)에서 태어났어요",sx:"남",job:"조선의 실학자",nat:"조선",era:"조선 후기",cat:"scholar",
+ tag:"거중기를 설계한 실학자",
+ d:["거중기를 설계해 수원 화성을 쌓는 기간과 비용을 크게 줄였어요.","18년 동안 전라도 강진에서 유배 생활을 하며 『목민심서』 등 500권이 넘는 책을 썼어요.","백성의 생활에 도움이 되는 학문인 실학을 크게 정리했어요."],
+ q:{t:"목민관(고을을 다스리는 관리)은 백성을 위해 있는 것이다.",s:"정약용의 글 「원목」에서",k:"글"},
+ m:"다산 선생님, 힘든 유배 중에도 책을 쓰신 끈기에 놀랐어요. 저도 어려울 때 포기하지 않을게요.",w:"정약용"},
+{id:"p51",v:4,n:"전봉준",h:"全琫準",alt:"녹두장군",life:"1855년 – 1895년",by:"1855년",bn:"전라도 고창에서 태어났어요",sx:"남",job:"동학 농민 운동 지도자",nat:"조선",era:"조선 말(개항기)",cat:"guard",
+ tag:"녹두장군이라 불린 농민군 지도자",
+ d:["1894년 고부 군수 조병갑의 횡포에 맞서 농민들과 함께 일어섰어요.","동학 농민군을 이끌고 황토현에서 이기고 전주성을 차지했어요.","전주 화약을 맺은 뒤 집강소를 두어 잘못된 정치를 고치려 했고, 일본군에 맞서 다시 일어섰어요."],
+ q:{t:"백성을 사랑하고 정의를 지킨 길에 무슨 잘못이 있으랴. 나라를 위한 붉은 마음을 그 누가 알아주랴.",s:"전봉준이 남겼다고 전하는 시(절명시)를 쉬운 말로 옮김",k:"시"},
+ f:"키가 작고 다부져서 ‘녹두장군’이라는 별명이 붙었다고 해요.",
+ m:"전봉준 장군님, 힘든 백성들을 위해 앞장서신 용기를 기억할게요.",w:"전봉준"},
+{id:"p52",v:4,n:"김대건",h:"金大建",alt:"세례명 안드레아",life:"1821년 – 1846년",by:"1821년",bn:"충청도 솔뫼(지금의 당진)에서 태어났어요",sx:"남",job:"한국인 최초의 가톨릭 신부",nat:"조선",era:"조선 후기",cat:"faith",
+ tag:"한국인 최초의 신부",
+ d:["15살에 중국 마카오로 건너가 신학을 공부했어요.","1845년 중국 상하이에서 한국인으로는 처음으로 가톨릭 사제(신부)가 되었어요.","조선 지도를 그려 서양에 우리나라를 알렸고, 조선에서 활동하다 1846년 25살의 나이로 목숨을 잃었어요."],
+ q:null,
+ f:"2021년 유네스코는 김대건 신부를 ‘세계 기념 인물’로 정했어요.",
+ m:"김대건 신부님, 어린 나이에 먼 나라로 공부하러 가신 용기가 대단해요.",w:"김대건"},
+{id:"p53",v:4,n:"황진이",h:"黃眞伊",by:"알 수 없어요",bn:"16세기 초 무렵 태어난 것으로 보여요",sx:"여",job:"조선의 시인, 예술가",nat:"조선",era:"조선 중기",cat:"art",
+ tag:"아름다운 우리말 시조를 남긴 시인",
+ d:["우리말의 아름다움을 살린 뛰어난 시조를 여러 편 남겼어요.","학자 서경덕, 박연 폭포와 함께 개성(송도)을 대표하는 ‘송도삼절’로 불렸어요.","노래와 춤, 글씨와 그림에도 뛰어났다고 전해져요."],
+ q:{t:"동짓달 기나긴 밤을 한 허리를 버혀 내어 / 춘풍 이불 아래 서리서리 넣었다가 / 어론 님 오신 날 밤이어든 구뷔구뷔 펴리라",s:"황진이의 시조",k:"시"},
+ f:"황진이의 삶에 대한 이야기는 대부분 야사(정식 역사책이 아닌 기록)로 전해져요. 가장 확실한 자료는 그가 남긴 시조예요.",
+ m:"황진이님, 긴 밤을 잘라 이불 속에 넣어 둔다는 생각이 정말 신기해요. 저도 시간을 표현하는 시를 써 볼게요.",w:"황진이"},
+
+/* ── 5절 ── */
+{id:"p54",v:5,n:"안중근",h:"安重根",alt:"세례명 토마스(도마)",life:"1879년 – 1910년",by:"1879년",bn:"황해도 해주에서 태어났어요",sx:"남",job:"독립운동가",nat:"대한제국",era:"대한제국",cat:"indep",
+ tag:"하얼빈에서 의거를 일으킨 독립운동가",
+ d:["학교(삼흥학교)를 세우고 운영하며 교육으로 나라의 힘을 기르려 했어요.","연해주에서 의병 활동을 하며 동지들과 손가락 한 마디를 끊어 독립을 맹세했어요(단지 동맹).","1909년 10월 26일 하얼빈역에서 우리나라 침략에 앞장선 이토 히로부미를 처단했어요."],
+ q:{t:"하루라도 책을 읽지 않으면 입안에 가시가 돋는다. (一日不讀書 口中生荊棘)",s:"뤼순 감옥에서 남긴 붓글씨(1910년)",k:"글"},
+ f:"감옥에서 동양의 평화를 위한 생각을 담은 『동양평화론』을 쓰다가 1910년 순국했어요.",
+ m:"안중근 의사님, 나라를 위해 목숨을 바치신 용기를 잊지 않을게요. 하루에 한 쪽이라도 책을 꼭 읽을게요.",w:"안중근"},
+{id:"p55",v:5,n:"윤동주",h:"尹東柱",life:"1917년 – 1945년",by:"1917년",bn:"만주 북간도 명동촌에서 태어났어요",sx:"남",job:"시인",nat:"일제 강점기의 한국",era:"일제 강점기",cat:"art",
+ tag:"부끄럼 없이 살고자 한 시인",
+ d:["일제 강점기에 우리말로 시를 써서 나라 잃은 슬픔과 스스로를 돌아보는 마음을 담았어요.","일본 유학 중이던 1943년 독립운동을 했다는 이유로 붙잡혀, 1945년 광복을 몇 달 앞두고 후쿠오카 형무소에서 세상을 떠났어요.","세상을 떠난 뒤 1948년 시집 『하늘과 바람과 별과 시』가 나와 지금까지 많은 사람에게 사랑받고 있어요."],
+ q:{t:"대표 시 「서시」, 「별 헤는 밤」, 「자화상」을 직접 찾아 읽고, 가장 마음에 드는 구절을 아래 ‘내가 쓰는 말’ 칸에 옮겨 적어 보세요.",s:"직접 찾아 읽기",k:"찾아보기"},
+ f:"서울 종로구 청운동에 윤동주문학관이 있고, 그가 다닌 연세대학교에는 윤동주 시비가 있어요.",
+ m:"윤동주 시인님, 별을 보며 쓰신 시들이 마음을 따뜻하게 해요. 저도 부끄럽지 않게 하루를 살아 볼게요.",w:"윤동주"},
+{id:"p56",v:5,n:"지석영",h:"池錫永",alt:"송촌",life:"1855년 – 1935년",by:"1855년",bn:"한성(지금의 서울)에서 태어났어요",sx:"남",job:"의사, 국어학자",nat:"조선 · 대한제국",era:"개항기",cat:"sci",
+ tag:"종두법을 널리 퍼뜨린 의사",
+ d:["1879년 부산에서 종두법(천연두 예방 접종)을 배워 충청도 충주에서 처음으로 접종했어요.","『우두신설』을 써서 종두법을 알리고, 천연두로부터 많은 사람을 지키는 데 힘썼어요.","한글 연구에도 힘써 1905년 국문을 바로잡는 방안(신정국문)을 올리고, 국문연구소를 세우는 데 앞장섰어요."],
+ q:null,
+ f:"지석영 이전에도 정약용 등이 우두법을 책으로 소개했고, 조선 정부도 종두를 퍼뜨리려고 노력했어요. 지석영의 역할이 지나치게 부풀려졌다는 연구도 있어요.",
+ m:"지석영 선생님, 무서운 병에서 사람들을 지키려고 노력하셔서 고맙습니다. 저도 예방 접종을 잘 챙길게요.",w:"지석영"},
+{id:"p57",v:5,n:"손병희",h:"孫秉熙",alt:"의암",life:"1861년 – 1922년",by:"1861년",bn:"충청도 청주에서 태어났어요",sx:"남",job:"천도교 지도자, 독립운동가",nat:"조선 · 대한제국",era:"개항기 · 일제 강점기",cat:"indep",
+ tag:"3·1 운동 민족 대표 33인의 대표",
+ d:["동학의 세 번째 지도자가 되었고, 1905년 동학의 이름을 ‘천도교’로 바꿨어요.","보성학교, 동덕여학교 등을 도와 교육으로 나라의 힘을 기르려 했어요.","1919년 3·1 운동 때 민족 대표 33인의 대표로 독립 선언에 앞장섰어요."],
+ q:{t:"사람이 곧 하늘이다. (인내천 人乃天)",s:"손병희가 천도교의 중심 가르침으로 정리한 생각",k:"생각"},
+ m:"손병희 선생님, 사람을 하늘처럼 귀하게 여기라는 가르침을 기억할게요.",w:"손병희"},
+{id:"p58",v:5,n:"유관순",h:"柳寬順",life:"1902년 – 1920년",by:"1902년",bn:"충청남도 천안에서 태어났어요",sx:"여",job:"독립운동가(학생)",nat:"대한제국 · 일제 강점기",era:"일제 강점기",cat:"indep",
+ tag:"아우내 장터 만세 운동을 이끈 학생",
+ d:["이화학당 학생으로 1919년 서울에서 3·1 운동에 참여했어요.","고향 천안으로 내려가 1919년 4월 1일 아우내 장터 만세 운동을 이끌었어요.","서대문 형무소에 갇혀서도 3·1 운동 1주년에 옥중 만세를 외치며 끝까지 저항했어요."],
+ q:null,
+ f:"흔히 유관순의 유언으로 알려진 긴 말은 정확한 출처가 확인되지 않았어요. 믿을 만한 자료를 찾아 비교해 보세요.",
+ m:"유관순 열사님, 저와 몇 살 차이 나지 않는 나이에 나라를 위해 용감하게 나서신 모습을 잊지 않을게요.",w:"유관순"},
+{id:"p59",v:5,n:"안창호",h:"安昌浩",alt:"도산",life:"1878년 – 1938년",by:"1878년",bn:"평안도 강서에서 태어났어요",sx:"남",job:"독립운동가, 교육자",nat:"대한제국 · 대한민국 임시 정부",era:"대한제국 · 일제 강점기",cat:"indep",
+ tag:"실력을 길러야 한다고 외친 교육자",
+ d:["1907년 비밀 단체 신민회를 만들고 1908년 평양에 대성학교를 세웠어요.","1913년 미국에서 흥사단을 만들어 민족의 힘이 될 인재를 길렀어요.","대한민국 임시 정부에서 내무총장 등을 맡아 독립운동을 이끌었어요."],
+ q:{t:"무실역행(務實力行): 참되게, 힘써 행하자.",s:"안창호가 흥사단의 정신으로 내세운 생각",k:"생각"},
+ m:"도산 선생님, 말보다 실천이 중요하다는 가르침을 따를게요. 오늘 계획한 일을 꼭 실천할게요.",w:"안창호"},
+{id:"p60",v:5,n:"방정환",h:"方定煥",alt:"소파",life:"1899년 – 1931년",by:"1899년",bn:"한성(지금의 서울)에서 태어났어요",sx:"남",job:"아동 문학가, 어린이 운동가",nat:"대한제국 · 일제 강점기",era:"일제 강점기",cat:"indep",
+ tag:"어린이날을 만든 어린이의 친구",
+ d:["‘어린이’라는 말을 널리 쓰며 어린이도 존중받아야 할 사람이라고 알렸어요.","1922년 천도교 소년회와 함께 어린이날을 만들었어요. 처음 어린이날은 5월 1일이었어요.","1923년 어린이 잡지 『어린이』를 펴내고, 재미있는 동화를 쓰고 들려주었어요."],
+ q:{t:"어린이를 내려다보지 마시고 쳐다보아 주시오.",s:"1923년 어린이날에 발표한 ‘어른들에게 드리는 글’ 가운데",k:"글"},
+ f:"방정환은 독립운동에도 참여한 공을 인정받아 건국훈장을 받았어요.",
+ m:"방정환 선생님, 어린이를 존중해 주셔서 고맙습니다. 어린이날마다 선생님을 떠올릴게요!",w:"방정환"},
+{id:"p61",v:5,n:"이상",h:"李箱",alt:"본명 김해경",life:"1910년 – 1937년",by:"1910년",bn:"경성(지금의 서울)에서 태어났어요",sx:"남",job:"시인, 소설가",nat:"일제 강점기의 한국",era:"일제 강점기",cat:"art",
+ tag:"새로운 형식의 시와 소설을 쓴 작가",
+ d:["숫자와 기호를 넣은 「오감도」처럼 그때까지 없던 새로운 형식의 시를 썼어요.","소설 「날개」 등을 발표해 사람의 마음속을 깊이 들여다보는 글을 남겼어요.","건축을 공부한 건축 기사이기도 했고, 잡지 표지 그림을 그리는 등 미술에도 재능을 보였어요."],
+ q:{t:"소설 「날개」의 첫 문장은 아주 유명해요. 어떤 문장인지 직접 찾아보고, 왜 유명한지 생각해 보세요.",s:"직접 찾아 읽기",k:"찾아보기"},
+ f:"‘이상’이라는 이름이 어떻게 생겼는지는 여러 이야기가 있어서, 정확히는 알 수 없어요.",
+ m:"이상 작가님, 남들과 다르게 생각하신 글들이 신기해요. 저도 새로운 방법으로 글을 써 볼게요.",w:"이상 (작가)"},
+{id:"p62",v:5,n:"이중섭",h:"李仲燮",alt:"대향",life:"1916년 – 1956년",by:"1916년",bn:"평안남도 평원에서 태어났어요",sx:"남",job:"화가",nat:"대한민국",era:"일제 강점기 · 대한민국",cat:"art",
+ tag:"힘찬 황소를 그린 화가",
+ d:["힘차게 움직이는 황소를 여러 점 그려 우리 민족의 힘과 의지를 표현했어요.","그림 재료가 부족하던 시절, 담뱃갑 속 은박지에 그림을 새기는 독창적인 방법을 썼어요.","멀리 떨어진 가족을 그리워하며 아이들과 가족의 그림, 그림 편지를 많이 남겼어요."],
+ q:null,
+ f:"제주도 서귀포에 이중섭이 피란 시절 살던 집과 이중섭미술관이 있어요.",
+ m:"이중섭 화가님, 은박지에도 그림을 그리신 열정이 대단해요. 저도 재활용품으로 작품을 만들어 볼게요.",w:"이중섭"}
+];
+
+var EXCLUDED = [
+  {v:1,n:"의자왕",r:"백제의 마지막 왕이에요. 나라를 잃은 책임에 대한 평가와 다시 보자는 의견이 엇갈려서 뺐어요."},
+  {v:1,n:"삼천궁녀",r:"실제로 3천 명이었다는 기록이 없는, 뒤에 부풀려진 이야기라서 뺐어요."},
+  {v:2,n:"정중부",r:"무신정변(1170년)을 일으켜 문신들을 해치고 권력을 잡은 인물이라 부정적인 평가가 많아요."},
+  {v:3,n:"신숙주",r:"훈민정음과 외교에서 큰일을 했지만, 단종을 몰아낸 세조 편에 선 일로 평가가 엇갈려요."},
+  {v:3,n:"한명회",r:"계유정난을 이끌고 권력을 독차지했다는 평가가 많아요."},
+  {v:4,n:"홍길동",r:"노래 속 홍길동은 허균의 소설 『홍길동전』의 주인공, 곧 지어낸 인물이에요."},
+  {v:4,n:"임꺽정",r:"실제로 있었던 사람이지만 도적의 우두머리로, 의적이라는 평가와 도적이라는 평가가 엇갈려요."},
+  {v:4,n:"홍경래",r:"차별과 잘못된 정치에 맞서 일어났지만, 무력으로 난을 일으킨 일에 대한 평가가 엇갈려요."},
+  {v:4,n:"김옥균",r:"개혁을 꿈꾼 갑신정변을 이끌었지만, 일본의 힘을 빌린 점 등으로 평가가 엇갈려요."},
+  {v:5,n:"이완용",r:"나라를 일본에 넘기는 데 앞장선 대표적인 매국노예요."},
+  {v:5,n:"이수일과 심순애",r:"소설과 연극 『장한몽』 속 지어낸 인물이에요."},
+  {v:5,n:"김두한",r:"실제로 있었던 사람이지만 폭력 조직 활동 등으로 평가가 엇갈려요."}
+];
+
+/* ───────── 저장(이 기기) ───────── */
+var store = {
+  get:function(k,d){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
+  set:function(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+};
+var done = new Set(store.get("wiin.done",[]));
+var notes = store.get("wiin.notes",{});
+
+/* ───────── 상태 ───────── */
+var state = {verse:"all", cat:"all", q:""};
+var hash = (location.hash||"").slice(1);
+if(/^v[1-5]$/.test(hash)) state.verse = +hash.charAt(1);
+else { var sv = store.get("wiin.verse","all"); if(sv==="all"||(sv>=1&&sv<=5)) state.verse = sv; }
+
+var BYID = {}; PEOPLE.forEach(function(p){ BYID[p.id]=p; });
+var current = null, currentList = [];
+
+function $(s){ return document.querySelector(s); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function sealHTML(p){
+  var chars = Array.from(p.sl || p.n).slice(0,3);
+  return '<span class="seal n'+chars.length+'" style="--c:var(--v'+p.v+')" aria-hidden="true">'+chars.map(function(c){return '<i>'+esc(c)+'</i>';}).join("")+'</span>';
+}
+
+/* ───────── 연표 띠 ───────── */
+function buildTimeline(){
+  var tl = $("#timeline"); var html = "";
+  html += '<button type="button" class="tl-btn" role="tab" data-verse="all" style="--c:var(--v0)"><span class="tl-verse">전체</span><span class="tl-era">모든 인물</span><span class="tl-count">'+PEOPLE.length+'명</span></button>';
+  VERSES.forEach(function(V){
+    var n = PEOPLE.filter(function(p){return p.v===V.v;}).length;
+    html += '<button type="button" class="tl-btn" role="tab" data-verse="'+V.v+'" style="--c:var(--v'+V.v+')"><span class="tl-verse">'+V.v+'절</span><span class="tl-era">'+esc(V.era)+'</span><span class="tl-years">'+esc(V.years)+'</span><span class="tl-count">'+n+'명</span></button>';
+  });
+  tl.innerHTML = html;
+  tl.addEventListener("click",function(e){
+    var b = e.target.closest(".tl-btn"); if(!b) return;
+    var v = b.getAttribute("data-verse");
+    state.verse = v==="all" ? "all" : +v;
+    store.set("wiin.verse",state.verse);
+    if(state.q){ state.q=""; $("#q").value=""; }
+    render();
+  });
+}
+function syncTimeline(){
+  Array.prototype.forEach.call(document.querySelectorAll(".tl-btn"),function(b){
+    var v = b.getAttribute("data-verse");
+    var on = !state.q && String(state.verse)===v;
+    b.setAttribute("aria-selected", on?"true":"false");
+  });
+}
+
+/* ───────── 분류 칩 ───────── */
+function buildChips(){
+  var html = '<button type="button" class="chip" data-cat="all">'+icon("all")+'모두</button>';
+  Object.keys(CATS).forEach(function(k){ html += '<button type="button" class="chip" data-cat="'+k+'">'+icon(CATS[k].icon)+esc(CATS[k].label)+'</button>'; });
+  var box = $("#chips"); box.innerHTML = html;
+  box.addEventListener("click",function(e){
+    var b = e.target.closest(".chip"); if(!b) return;
+    state.cat = b.getAttribute("data-cat"); render();
+  });
+}
+function syncChips(){
+  Array.prototype.forEach.call(document.querySelectorAll(".chip"),function(b){
+    b.setAttribute("aria-pressed", b.getAttribute("data-cat")===state.cat ? "true":"false");
+  });
+}
+
+/* ───────── 거르기 ───────── */
+function matches(p){
+  if(state.cat!=="all" && p.cat!==state.cat) return false;
+  if(state.q){
+    var hay = [p.n,p.h,p.alt,p.tag,p.job,p.nat,p.era,CATS[p.cat].label,p.d.join(" "),p.by,p.bn,p.note].join(" ").toLowerCase();
+    return state.q.split(/\s+/).filter(Boolean).every(function(t){ return hay.indexOf(t)>-1; });
+  }
+  if(state.verse!=="all" && p.v!==state.verse) return false;
+  return true;
+}
+
+/* ───────── 목록 그리기 ───────── */
+function cardHTML(p){
+  var c = CATS[p.cat];
+  return '<button type="button" class="card" data-id="'+p.id+'" style="--c:var(--v'+p.v+')">'+sealHTML(p)+
+    '<span class="card-body">'+
+      '<span class="card-name">'+esc(p.n)+(p.badge?'<span class="badge">'+esc(p.badge)+'</span>':'')+(done.has(p.id)?'<span class="done-dot" title="조사 완료">'+icon("check")+'<span class="sr">조사 완료</span></span>':'')+'</span>'+
+      '<span class="card-tag">'+esc(p.tag)+'</span>'+
+      '<span class="card-meta"><span>'+icon(c.icon)+esc(c.label)+'</span><span>'+esc(p.nat)+'</span></span>'+
+    '</span></button>';
+}
+function render(){
+  syncTimeline(); syncChips();
+  var list = PEOPLE.filter(matches);
+  currentList = list;
+  var html = "";
+  if(state.q) html += '<p class="result-note">전체 인물 가운데 ‘'+esc(state.q)+'’ 검색 결과 '+list.length+'명이에요.</p>';
+  VERSES.forEach(function(V){
+    var items = list.filter(function(p){return p.v===V.v;});
+    if(!items.length) return;
+    html += '<section class="vsec" style="--c:var(--v'+V.v+')" aria-labelledby="vh'+V.v+'">'+
+      '<div class="vsec-head"><h2 id="vh'+V.v+'">'+V.v+'절</h2><span class="vsec-era">'+esc(V.era)+'</span><span class="vsec-meta">'+esc(V.years)+' · '+items.length+'명</span></div>'+
+      '<div class="grid">'+items.map(cardHTML).join("")+'</div></section>';
+  });
+  if(!list.length){
+    html += '<div class="empty"><b>찾는 인물이 없어요</b>다른 낱말로 찾아보거나, 아래 ‘이 사이트에 넣지 않은 인물’을 확인해 보세요.</div>';
+  }
+  $("#list").innerHTML = html;
+  updateProgress();
+}
+function updateProgress(){
+  var n = PEOPLE.filter(function(p){return done.has(p.id);}).length;
+  $("#doneCount").textContent = n;
+  $("#totalCount").textContent = PEOPLE.length;
+  $("#doneBar").style.width = (n/PEOPLE.length*100)+"%";
+}
+
+/* ───────── 위키백과 사진(인터넷 연결 시) ─────────
+   사이트를 내 컴퓨터에서 파일로 열면 위키백과 대표 사진을 불러와요.
+   불러올 수 없는 곳에서는 도장 그림을 보여 줘요. */
+var IMG = {blocked:false, cache:{}};
+function loadImage(p){
+  if(IMG.blocked) return Promise.resolve(null);
+  if(Object.prototype.hasOwnProperty.call(IMG.cache,p.id)) return Promise.resolve(IMG.cache[p.id]);
+  var url = "https://ko.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=pageimages%7Cpageprops&piprop=thumbnail&pithumbsize=480&titles="+encodeURIComponent(p.w);
+  var ctrl = ("AbortController" in window) ? new AbortController() : null;
+  var timer = setTimeout(function(){ if(ctrl) ctrl.abort(); },5000);
+  return fetch(url, ctrl?{signal:ctrl.signal}:{}).then(function(r){ return r.json(); }).then(function(j){
+    clearTimeout(timer);
+    var pages = j && j.query && j.query.pages; var pg = pages ? pages[Object.keys(pages)[0]] : null;
+    var ok = pg && !("missing" in pg) && !(pg.pageprops && ("disambiguation" in pg.pageprops)) && pg.thumbnail;
+    IMG.cache[p.id] = ok ? {src:pg.thumbnail.source, title:pg.title} : null;
+    return IMG.cache[p.id];
+  }).catch(function(){ clearTimeout(timer); IMG.blocked = true; return null; });
+}
+
+/* ───────── 조사 카드 ───────── */
+var dlg = $("#detail");
+var QLABEL = {"기록":"인물이 남긴 말","시":"인물이 남긴 시","글":"인물이 남긴 글","생각":"인물의 핵심 생각","일화":"전해 오는 말","찾아보기":"인물이 남긴 글 찾아보기"};
+
+function openPerson(id){
+  var p = BYID[id]; if(!p) return;
+  if(!currentList.some(function(x){return x.id===id;})) currentList = PEOPLE.slice();
+  current = p; fill(p);
+  if(!dlg.open){ try{ dlg.showModal(); }catch(e){ dlg.setAttribute("open",""); } }
+  dlg.scrollTop = 0;
+}
+function fill(p){
+  var V = VERSES[p.v-1]; var c = CATS[p.cat];
+  dlg.style.setProperty("--c","var(--v"+p.v+")");
+  $("#dSeal").outerHTML = '<span id="dSeal">'+sealHTML(p)+'</span>';
+  $("#dEyebrow").innerHTML = '<span class="vchip">'+p.v+'절</span><span>'+esc(V.era)+'</span>'+(p.badge?'<span class="badge">'+esc(p.badge)+'</span>':'');
+  $("#dName").textContent = p.n;
+  $("#dSub").textContent = [p.h, p.alt, p.life].filter(Boolean).join(" · ");
+  $("#dTag").textContent = p.tag;
+  var note = $("#dNote"); note.hidden = !p.note; note.textContent = p.note || "";
+  syncDone();
+
+  $("#hFacts").innerHTML = icon("info")+"기본 정보";
+  $("#dFacts").innerHTML =
+    '<div><dt>태어난 해</dt><dd>'+esc(p.by)+(p.bn?'<small>'+esc(p.bn)+'</small>':'')+'</dd></div>'+
+    '<div><dt>성별</dt><dd>'+esc(p.sx)+'</dd></div>'+
+    '<div><dt>직업</dt><dd>'+esc(p.job)+'<small>'+esc(c.label)+'</small></dd></div>'+
+    '<div><dt>나라</dt><dd>'+esc(p.nat)+'<small>'+esc(p.era)+'</small></dd></div>';
+
+  $("#hDeeds").innerHTML = icon("list")+"인물이 한 일 3가지";
+  $("#dDeeds").innerHTML = p.d.map(function(x){ return "<li>"+esc(x)+"</li>"; }).join("");
+
+  var qbox = $("#dQuote");
+  if(p.q){
+    $("#hQuote").innerHTML = icon("quote")+esc(QLABEL[p.q.k]||"인물이 남긴 말");
+    var lines = p.q.k==="시" ? p.q.t.split(" / ").map(esc).join("<br>") : esc(p.q.t);
+    qbox.className = "quote"+(p.q.k==="찾아보기"?" empty-q":"");
+    qbox.innerHTML = "<p>"+lines+"</p><cite>"+esc(p.q.s)+"</cite>";
+  } else {
+    $("#hQuote").innerHTML = icon("quote")+"인물이 남긴 말";
+    qbox.className = "quote empty-q";
+    qbox.innerHTML = "<p>기록으로 확실하게 남은 말을 찾기 어려운 인물이에요. 책이나 누리집에서 이 인물에 대한 글을 찾아보고, 마음에 드는 문장을 골라 보세요.</p>";
+  }
+
+  var hint = $("#dHint"); hint.hidden = !p.f;
+  $("#hHint").innerHTML = icon("search")+"알쏭달쏭 사실 확인";
+  $("#dFact").textContent = p.f || "";
+
+  $("#hMsg").innerHTML = icon("pen")+"인물에게 하고 싶은 말";
+  $("#dMsg").textContent = p.m;
+  $("#myNote").value = notes[p.id] || "";
+  $("#saveNote").textContent = "쓴 내용은 이 기기에 자동으로 저장돼요.";
+
+  $("#wikiLink").href = "https://ko.wikipedia.org/w/index.php?search="+encodeURIComponent(p.w);
+
+  $("#prevBtn").disabled = currentList.length<2;
+  $("#nextBtn").disabled = currentList.length<2;
+
+  var frame = $("#dFrame"), img = $("#dImg"), cap = $("#dCap");
+  frame.classList.remove("has-img"); img.hidden = true; img.removeAttribute("src");
+  cap.textContent = "사진 자료는 아래 ‘위키백과에서 더 찾아보기’에서 찾아보세요.";
+  loadImage(p).then(function(r){
+    if(!r || current!==p) return;
+    img.onload = function(){ if(current!==p) return; img.hidden=false; frame.classList.add("has-img"); cap.textContent = "사진 자료: 위키백과 「"+r.title+"」"; };
+    img.onerror = function(){ img.hidden = true; frame.classList.remove("has-img"); };
+    img.alt = p.n+" 관련 사진";
+    img.src = r.src;
+  });
+}
+function syncDone(){
+  var b = $("#doneBtn"); var on = current && done.has(current.id);
+  b.setAttribute("aria-pressed", on?"true":"false");
+  b.innerHTML = icon("check") + (on ? "조사 완료!" : "조사를 마쳤으면 눌러요");
+}
+function step(dir){
+  if(!current || currentList.length<2) return;
+  var i = currentList.indexOf(current); if(i<0) i = 0;
+  var n = currentList[(i+dir+currentList.length)%currentList.length];
+  current = n; fill(n); dlg.scrollTop = 0;
+}
+
+/* ───────── 이벤트 ───────── */
+$("#list").addEventListener("click",function(e){
+  var c = e.target.closest(".card"); if(c) openPerson(c.getAttribute("data-id"));
+});
+var qTimer;
+$("#q").addEventListener("input",function(e){
+  clearTimeout(qTimer);
+  var v = e.target.value.trim().toLowerCase();
+  qTimer = setTimeout(function(){ state.q = v; render(); },120);
+});
+$("#randomBtn").addEventListener("click",function(){
+  var pool = currentList.length ? currentList : PEOPLE;
+  var p = pool[Math.floor(Math.random()*pool.length)];
+  currentList = pool; openPerson(p.id);
+});
+$("#closeBtn").addEventListener("click",function(){ dlg.close(); });
+dlg.addEventListener("click",function(e){ if(e.target===dlg) dlg.close(); });
+dlg.addEventListener("close",function(){ render(); });
+$("#prevBtn").addEventListener("click",function(){ step(-1); });
+$("#nextBtn").addEventListener("click",function(){ step(1); });
+dlg.addEventListener("keydown",function(e){
+  if(e.target && (e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT")) return;
+  if(e.key==="ArrowRight"){ e.preventDefault(); step(1); }
+  else if(e.key==="ArrowLeft"){ e.preventDefault(); step(-1); }
+});
+$("#doneBtn").addEventListener("click",function(){
+  if(!current) return;
+  if(done.has(current.id)) done.delete(current.id); else done.add(current.id);
+  store.set("wiin.done", Array.from(done)); syncDone(); updateProgress();
+});
+var nTimer;
+$("#myNote").addEventListener("input",function(e){
+  if(!current) return;
+  var id = current.id, val = e.target.value;
+  clearTimeout(nTimer);
+  $("#saveNote").textContent = "저장하는 중…";
+  nTimer = setTimeout(function(){
+    if(val.trim()) notes[id] = val; else delete notes[id];
+    store.set("wiin.notes", notes);
+    $("#saveNote").textContent = "저장했어요. (이 기기에만 저장돼요)";
+  },400);
+});
+
+/* ───────── 제외 인물 ───────── */
+$("#exCount").textContent = EXCLUDED.length;
+$("#exList").innerHTML = EXCLUDED.map(function(x){
+  return '<li><span class="ex-v">'+x.v+'절</span><b>'+esc(x.n)+'</b>'+esc(x.r)+'</li>';
+}).join("");
+
+buildTimeline(); buildChips(); render();
+})();
+</script>
+
+</html>
